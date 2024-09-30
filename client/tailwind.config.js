@@ -3,20 +3,20 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
-      // colors: {
-      //   primary: {
-      //     100: "#2c3e50",
-      //     200: "#333",
-      //     300: "rgba(44, 62, 80, 0.9)",
-      //   },
-      //   black: "#000",
-      //   white: "#fff",
-      //   bg: "#F9F9F9",
-      //   textbg: "#f2f2f3",
-      //   secondary: "#ff9900",
-      //   presgreen: "#16978E",
-      //   presred: "#FF095C",
-      // },
+      colors: {
+        primary: {
+          100: "#2c3e50",
+          200: "#333",
+          300: "rgba(44, 62, 80, 0.9)",
+        },
+        black: "#000",
+        white: "#fff",
+        bg: "#F9F9F9",
+        textbg: "#f2f2f3",
+        secondary: "#ff9900",
+        presgreen: "#16978E",
+        presred: "#FF095C",
+      },
       // spacing: {},
       // fontFamily: {
       //   "open-sans": "'Open Sans'",
