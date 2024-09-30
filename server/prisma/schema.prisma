@@ -1,0 +1,120 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int      @id @default(autoincrement())
+  username      String   @unique @db.VarChar(50)
+  passwordHash  String   @db.VarChar(255)
+  email         String   @unique @db.VarChar(100)
+  gender        Gender?
+  role          Role
+  designationId Int
+  phoneNumber   String?  @db.VarChar(20)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  designation      Designation?       @relation(fields: [designationId], references: [id])
+  EmployeeProgress EmployeeProgress[]
+  userSkills       UserSkill[]
+}
+
+enum Role {
+  admin
+  employee
+}
+
+enum Gender {
+  male
+  female
+  other
+}
+
+model Designation {
+  id                Int                @id @default(autoincrement())
+  name              String             @db.VarChar(100)
+  users             User[]
+  designationSkills DesignationSkill[]
+}
+
+model Course {
+  id               Int                @id @default(autoincrement()) @map("course_id")
+  title            String             @db.VarChar(255)
+  url              String             @db.VarChar(255)
+  shortIntro       String?            @db.Text
+  difficulty       Difficulty
+  language         String?            @db.VarChar(50)
+  totalTime        Int
+  totalModules     Int
+  createdAt        DateTime           @default(now()) @map("created_at")
+  updatedAt        DateTime           @updatedAt @map("updated_at")
+  EmployeeProgress EmployeeProgress[]
+  courseSkills     CourseSkill[]
+}
+
+enum Difficulty {
+  beginner
+  intermediate
+  advanced
+}
+
+model EmployeeProgress {
+  id               Int            @id @default(autoincrement()) @map("progress_id")
+  userId           Int
+  courseId         Int
+  progressStatus   ProgressStatus
+  lastUpdated      DateTime       @updatedAt @map("last_updated")
+  modulesCompleted Int
+  certificateProof String?        @db.VarChar(255)
+
+  user   User   @relation(fields: [userId], references: [id])
+  course Course @relation(fields: [courseId], references: [id])
+}
+
+enum ProgressStatus {
+  not_started
+  in_progress
+  completed
+}
+
+model Skill {
+  id                Int                @id @default(autoincrement())
+  name              String             @db.VarChar(100)
+  userSkills        UserSkill[]
+  designationSkills DesignationSkill[]
+  courseSkills      CourseSkill[]
+}
+
+model UserSkill {
+  id      Int @id @default(autoincrement())
+  userId  Int
+  skillId Int
+
+  user  User  @relation(fields: [userId], references: [id])
+  skill Skill @relation(fields: [skillId], references: [id])
+}
+
+model DesignationSkill {
+  id            Int @id @default(autoincrement())
+  designationId Int
+  skillId       Int
+
+  designation Designation @relation(fields: [designationId], references: [id])
+  skill       Skill       @relation(fields: [skillId], references: [id])
+}
+
+model CourseSkill {
+  id       Int @id @default(autoincrement())
+  courseId Int
+  skillId  Int
+
+  course Course @relation(fields: [courseId], references: [id])
+  skill  Skill  @relation(fields: [skillId], references: [id])
+}
+
+// npx prisma migrate dev --name init
