@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Auth from "./components/Auth";
 import Login from "./components/Login";
 import SignUp from "./components/Signup";
+import ProtectRoute from "./components/ProtectRoutes";
+
 function App() {
   return (
     <div className="flex flex-col h-screen justify-between">
@@ -10,8 +12,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
-          {/* <Route path="/dashboard" element={<Home />} />
-          <Route path="/profile" element={<UserProfile />} />
+          {/* <Route path="/dashboard" element={<ProtectRoute element={<SignUp />} />} /> */}
+          {/* <Route path="/profile" element={<UserProfile />} />
           <Route path="/manageSkills" element={<ManageSkills />} />
           <Route path="/updateSkills" element={<UpdateSkillSet />} /> */}
         </Routes>

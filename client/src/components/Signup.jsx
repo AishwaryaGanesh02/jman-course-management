@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import authService from "../services/authService"; // Ensure this is your auth service
 import axios from "axios";
+
 export default function SignUp() {
-  const [username, setUsername] = useState(""); // Updated to username
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [degn, setDegn] = useState("");
-  const [gender, setGender] = useState("");
+  const [gender, setGender] = useState("others");
   const [password, setPassword] = useState("");
   const [repassword, setRePassword] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [designations, setDesignations] = useState([]);
   const [passwordStrength, setPasswordStrength] = useState("");
 
@@ -37,62 +38,72 @@ export default function SignUp() {
   const getPasswordStrength = (password) => {
     const hasCapitalLetter = /[A-Z]/.test(password);
     const hasSmallLetter = /[a-z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
     const hasSpecialCharacter = /[!@#$%^&*(),.?":{}|<>]/.test(password);
     const hasMinimumLength = password.length >= 8;
-
-    if (password.length === 0) return "Please enter a password";
-    if (password.length === 1) return "Very Weak";
+    if (password.length === 0) {
+      return "Please enter a password";
+    }
+    if (password.length === 1) {
+      return "Very Weak";
+    }
     if (
       hasCapitalLetter &&
       hasSmallLetter &&
       hasSpecialCharacter &&
+      hasNumber &&
       hasMinimumLength
-    )
+    ) {
       return "Very Strong";
-    if (hasCapitalLetter && hasSmallLetter && hasMinimumLength) return "Strong";
-    if ((hasCapitalLetter || hasSmallLetter) && hasMinimumLength)
+    }
+    if (hasCapitalLetter && hasSmallLetter && hasMinimumLength && hasNumber) {
+      return "Strong";
+    }
+    if ((hasCapitalLetter || hasSmallLetter) && hasMinimumLength) {
       return "Medium";
-
+    }
     return "Weak";
   };
 
-  const FormSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== repassword) {
-      alert("Passwords do not match");
+      alert("Passwords do not match. Please try again.");
       return;
     }
-
     try {
       const body = {
-        username, // Changed from name to username
+        username: name,
         email,
-        designationId: degn, // Assuming designationId is what your backend expects
+        designationId: degn,
         gender,
         password,
+        phoneNumber,
       };
+      console.log(body);
+      const response = await axios.post(
+        "http://localhost:1200/api/auth/register",
+        body
+      );
+      alert(response.data.message);
 
-      const response = await authService.register(body); // Use your authService for registration
-      alert(response.data.result);
-
-      if (response.data.result === "Successfully Registered") {
+      if (response.data.message === "Successfully Registered") {
         setTimeout(() => {
           navigate("/");
         }, 500);
       }
     } catch (err) {
       console.error(err.message);
-      alert(
-        err.response?.data?.message || "An error occurred during registration"
-      );
+      alert("Registration failed. Please try again.");
     }
 
-    // Reset form fields
-    setUsername("");
+    setName("");
     setEmail("");
     setDegn("");
     setPassword("");
     setRePassword("");
+    setGender("");
+    setPhoneNumber("");
   };
 
   return (
@@ -110,16 +121,16 @@ export default function SignUp() {
         <div className="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
           <div className="flex flex-col justify-center md:px-14 md:py-8 p-10">
             <span className="mb-2 text-5xl text-center font-bold">Sign Up</span>
-            <form onSubmit={FormSubmit}>
+            <form onSubmit={handleSubmit}>
               <div className="mt-3">
-                <span className="mb-2 text-md">Username</span>
+                <span className="mb-2 text-md">Name</span>
                 <input
                   type="text"
                   className="block w-full mt-1.5 rounded-md box-border border-0 px-0 text-gray-900 shadow-sm ring-1 ring-inset bg-textbg ring-gray-300 placeholder:text-gray-400 focus:ring-2 pl-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  name="username"
-                  id="username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  name="name"
+                  id="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   required
                 />
               </div>
@@ -132,6 +143,18 @@ export default function SignUp() {
                   id="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="mt-3">
+                <span className="mb-2 text-md">Phone</span>
+                <input
+                  type="number"
+                  className="block w-full mt-1.5 rounded-md box-border border-0 px-0 text-gray-900 shadow-sm ring-1 ring-inset bg-textbg ring-gray-300 placeholder:text-gray-400 focus:ring-2 pl-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  name="phone"
+                  id="phone"
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
                   required
                 />
               </div>
@@ -154,14 +177,14 @@ export default function SignUp() {
                 </select>
               </div>
               <div className="mt-3">
-                <span className="mb-2 text-md">Gender</span>
+                <span className="mb-2 rext-md">Gender</span>
                 <div className="flex items-center">
                   <label className="inline-flex items-center mt-1.5">
                     <input
                       type="radio"
                       name="gender"
-                      value="Male"
-                      checked={gender === "Male"}
+                      value="male"
+                      checked={gender === "male"}
                       onChange={(e) => setGender(e.target.value)}
                       className="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out box-border border-0 shadow-sm ring-1 ring-inset  bg-textbg ring-gray-300"
                     />
@@ -171,8 +194,8 @@ export default function SignUp() {
                     <input
                       type="radio"
                       name="gender"
-                      value="Female"
-                      checked={gender === "Female"}
+                      value="female"
+                      checked={gender === "female"}
                       onChange={(e) => setGender(e.target.value)}
                       className="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out box-border border-0 shadow-sm ring-1 ring-inset bg-textbg ring-gray-300"
                     />
@@ -182,8 +205,8 @@ export default function SignUp() {
                     <input
                       type="radio"
                       name="gender"
-                      value="Others"
-                      checked={gender === "Others"}
+                      value="others"
+                      checked={gender === "others"}
                       onChange={(e) => setGender(e.target.value)}
                       className="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out box-border border-0 shadow-sm ring-1 ring-inset  bg-textbg ring-gray-300"
                     />
@@ -267,7 +290,6 @@ export default function SignUp() {
             <div className="text-center text-grey-400">
               Do you have an account?
               <Link to="/" className="font-bold">
-                {" "}
                 Sign In
               </Link>
             </div>

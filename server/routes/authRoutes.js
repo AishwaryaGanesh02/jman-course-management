@@ -1,9 +1,14 @@
-const express = require("express");
-const { register, login } = require("../controllers/authController");
+const express = require('express');
+const authController = require('../controllers/authController');
+const authenticateToken = require('../middlewares/authMiddleware');
 
 const router = express.Router();
 
-router.post("/register", register);
-router.post("/login", login);
+router.post('/register', authController.register);
+router.post('/login', authController.login);
+router.get('/profile', authenticateToken, (req, res) => {
+    console.log("ppppppppp")
+    res.json({ message: 'Welcome to your profile!', user: req.user });
+});
 
 module.exports = router;
