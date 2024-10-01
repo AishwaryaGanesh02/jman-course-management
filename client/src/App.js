@@ -6,6 +6,7 @@ import SignUp from "./components/Signup";
 import ProtectRoute from "./components/ProtectRoutes";
 import SkillSet from "./components/SkillSet";
 import CourseList from "./components/CourseList";
+import CourseDetail from "./components/CourseDetail";
 
 function App() {
   return (
@@ -21,6 +22,10 @@ function App() {
           <Route
             path="/updateCourses"
             element={<ProtectRoute element={<CourseList />} />}
+          />
+          <Route
+            path="/courseInfo"
+            element={<ProtectRoute element={<CourseDetail />} />}
           />
           {/* <Route path="/profile" element={<UserProfile />} />
           <Route path="/manageSkills" element={<ManageSkills />} />

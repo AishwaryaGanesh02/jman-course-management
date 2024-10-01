@@ -64,3 +64,34 @@ exports.getUserCoursesWithProgress = async (req, res) => {
       .json({ error: "Failed to fetch user courses with progress" });
   }
 };
+
+exports.getCourseDetails = async (req, res) => {
+  const { courseId } = req.params;
+
+  try {
+    const courseDetails = await CourseModel.getCourseDetailsWithProgress(
+      courseId
+    );
+
+    // Format the response
+    const response = {
+      data: {
+        title: courseDetails.course.title,
+        url: courseDetails.course.url,
+        shortIntro: courseDetails.course.shortIntro,
+        difficulty: courseDetails.course.difficulty,
+        language: courseDetails.course.language,
+        totalTime: courseDetails.course.totalTime,
+        totalModules: courseDetails.course.totalModules,
+        completedCount: courseDetails.completedCount,
+        enrolledCount: courseDetails.enrolledCount,
+        skills: courseDetails.skills.map((courseSkill) => courseSkill.name),
+      },
+    };
+
+    res.json(response);
+  } catch (error) {
+    console.error("Error fetching course details:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
