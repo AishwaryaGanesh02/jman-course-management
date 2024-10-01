@@ -6,7 +6,7 @@ export default function SignUp() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [degn, setDegn] = useState("");
-  const [gender, setGender] = useState("others");
+  const [gender, setGender] = useState("Others");
   const [password, setPassword] = useState("");
   const [repassword, setRePassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -80,7 +80,6 @@ export default function SignUp() {
         password,
         phoneNumber,
       };
-      console.log(body);
       const response = await axios.post(
         "http://localhost:1200/api/auth/register",
         body
@@ -183,8 +182,8 @@ export default function SignUp() {
                     <input
                       type="radio"
                       name="gender"
-                      value="male"
-                      checked={gender === "male"}
+                      value="Male"
+                      checked={gender === "Male"}
                       onChange={(e) => setGender(e.target.value)}
                       className="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out box-border border-0 shadow-sm ring-1 ring-inset  bg-textbg ring-gray-300"
                     />
@@ -194,8 +193,8 @@ export default function SignUp() {
                     <input
                       type="radio"
                       name="gender"
-                      value="female"
-                      checked={gender === "female"}
+                      value="Female"
+                      checked={gender === "Female"}
                       onChange={(e) => setGender(e.target.value)}
                       className="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out box-border border-0 shadow-sm ring-1 ring-inset bg-textbg ring-gray-300"
                     />
@@ -205,8 +204,8 @@ export default function SignUp() {
                     <input
                       type="radio"
                       name="gender"
-                      value="others"
-                      checked={gender === "others"}
+                      value="Others"
+                      checked={gender === "Others"}
                       onChange={(e) => setGender(e.target.value)}
                       className="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out box-border border-0 shadow-sm ring-1 ring-inset  bg-textbg ring-gray-300"
                     />

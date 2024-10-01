@@ -30,9 +30,9 @@ enum Role {
 }
 
 enum Gender {
-  male
-  female
-  others
+  Male
+  Female
+  Others
 }
 
 model Designation {
@@ -58,9 +58,9 @@ model Course {
 }
 
 enum Difficulty {
-  beginner
-  intermediate
-  advanced
+  Beginner
+  Intermediate
+  Advanced
 }
 
 model EmployeeProgress {
@@ -91,12 +91,12 @@ model Skill {
 }
 
 model UserSkill {
-  id      Int @id @default(autoincrement())
+  id      Int        @id @default(autoincrement())
   userId  Int
   skillId Int
-
-  user  User  @relation(fields: [userId], references: [id])
-  skill Skill @relation(fields: [skillId], references: [id])
+  level   Difficulty
+  user    User       @relation(fields: [userId], references: [id])
+  skill   Skill      @relation(fields: [skillId], references: [id])
 }
 
 model DesignationSkill {
@@ -109,9 +109,10 @@ model DesignationSkill {
 }
 
 model CourseSkill {
-  id       Int @id @default(autoincrement())
+  id       Int        @id @default(autoincrement())
   courseId Int
   skillId  Int
+  level    Difficulty
 
   course Course @relation(fields: [courseId], references: [id])
   skill  Skill  @relation(fields: [skillId], references: [id])

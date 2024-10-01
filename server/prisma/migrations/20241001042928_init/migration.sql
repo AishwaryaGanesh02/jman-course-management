@@ -2,10 +2,10 @@
 CREATE TYPE "Role" AS ENUM ('admin', 'employee');
 
 -- CreateEnum
-CREATE TYPE "Gender" AS ENUM ('male', 'female', 'other');
+CREATE TYPE "Gender" AS ENUM ('Male', 'Female', 'Others');
 
 -- CreateEnum
-CREATE TYPE "Difficulty" AS ENUM ('beginner', 'intermediate', 'advanced');
+CREATE TYPE "Difficulty" AS ENUM ('Beginner', 'Intermediate', 'Advanced');
 
 -- CreateEnum
 CREATE TYPE "ProgressStatus" AS ENUM ('not_started', 'in_progress', 'completed');
@@ -13,7 +13,7 @@ CREATE TYPE "ProgressStatus" AS ENUM ('not_started', 'in_progress', 'completed')
 -- CreateTable
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
-    "username" VARCHAR(50) NOT NULL,
+    "username" TEXT NOT NULL,
     "passwordHash" VARCHAR(255) NOT NULL,
     "email" VARCHAR(100) NOT NULL,
     "gender" "Gender",
@@ -76,6 +76,7 @@ CREATE TABLE "UserSkill" (
     "id" SERIAL NOT NULL,
     "userId" INTEGER NOT NULL,
     "skillId" INTEGER NOT NULL,
+    "level" "Difficulty" NOT NULL,
 
     CONSTRAINT "UserSkill_pkey" PRIMARY KEY ("id")
 );
@@ -94,12 +95,10 @@ CREATE TABLE "CourseSkill" (
     "id" SERIAL NOT NULL,
     "courseId" INTEGER NOT NULL,
     "skillId" INTEGER NOT NULL,
+    "level" "Difficulty" NOT NULL,
 
     CONSTRAINT "CourseSkill_pkey" PRIMARY KEY ("id")
 );
-
--- CreateIndex
-CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");

@@ -1,10 +1,12 @@
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+const prisma = require("../config/db");
 
 const DesignationModel = {
-    getAll: async () => {
-        return await prisma.designation.findMany();
-    },
+  getAllDesignations: async () => {
+    return await prisma.designation.findMany();
+  },
+  getAllSkills: async () => {
+    return await prisma.skill.findMany();
+  },
 };
 
 module.exports = DesignationModel;

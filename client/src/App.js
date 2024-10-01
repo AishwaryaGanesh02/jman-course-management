@@ -4,6 +4,8 @@ import Auth from "./components/Auth";
 import Login from "./components/Login";
 import SignUp from "./components/Signup";
 import ProtectRoute from "./components/ProtectRoutes";
+import SkillSet from "./components/SkillSet";
+import CourseList from "./components/CourseList";
 
 function App() {
   return (
@@ -12,7 +14,14 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
-          {/* <Route path="/dashboard" element={<ProtectRoute element={<SignUp />} />} /> */}
+          <Route
+            path="/updateSkills"
+            element={<ProtectRoute element={<SkillSet />} />}
+          />
+          <Route
+            path="/updateCourses"
+            element={<ProtectRoute element={<CourseList />} />}
+          />
           {/* <Route path="/profile" element={<UserProfile />} />
           <Route path="/manageSkills" element={<ManageSkills />} />
           <Route path="/updateSkills" element={<UpdateSkillSet />} /> */}

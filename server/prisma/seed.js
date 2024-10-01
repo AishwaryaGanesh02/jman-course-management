@@ -38,7 +38,7 @@ async function main() {
         title: "Introduction to JavaScript",
         url: "http://example.com/js-course",
         shortIntro: "Learn the basics of JavaScript.",
-        difficulty: "beginner",
+        difficulty: "Beginner",
         language: "English",
         totalTime: 30,
         totalModules: 5,
@@ -47,7 +47,7 @@ async function main() {
         title: "Data Science with Python",
         url: "http://example.com/python-course",
         shortIntro: "Become a data scientist with Python.",
-        difficulty: "intermediate",
+        difficulty: "Intermediate",
         language: "English",
         totalTime: 40,
         totalModules: 6,
@@ -56,7 +56,7 @@ async function main() {
         title: "Project Management Fundamentals",
         url: "http://example.com/pm-course",
         shortIntro: "Learn essential project management skills.",
-        difficulty: "beginner",
+        difficulty: "Beginner",
         language: "English",
         totalTime: 20,
         totalModules: 4,
@@ -67,10 +67,10 @@ async function main() {
   // Seed courseSkills
   await prisma.courseSkill.createMany({
     data: [
-      { courseId: 1, skillId: 1 }, // Introduction to JavaScript - JavaScript
-      { courseId: 2, skillId: 2 }, // Data Science with Python - Python
-      { courseId: 3, skillId: 5 }, // Project Management Fundamentals - Project Management
-      { courseId: 1, skillId: 4 }, // Introduction to JavaScript - Data Analysis
+      { courseId: 1, skillId: 1, level: "Intermediate" }, // Introduction to JavaScript - JavaScript
+      { courseId: 2, skillId: 2, level: "Advanced" }, // Data Science with Python - Python
+      { courseId: 3, skillId: 5, level: "Intermediate" }, // Project Management Fundamentals - Project Management
+      { courseId: 1, skillId: 4, level: "Beginner" }, // Introduction to JavaScript - Data Analysis
     ],
   });
 
@@ -96,7 +96,8 @@ async function main() {
       username: "lara",
       email: "lara@g.co",
       role: "admin",
-      gender: "female",
+      designationId: 3,
+      gender: "Female",
       phoneNumber: "9874563210",
       passwordHash: bcryptPassword,
     },
