@@ -12,7 +12,7 @@ const getDesignations = async (req, res, next) => {
 const getSkills = async (req, res, next) => {
   try {
     const skills = await DesignationModel.getAllSkills();
-    res.json(skills);
+    res.json(skills.map((skill) => skill.name));
   } catch (error) {
     next(error);
   }

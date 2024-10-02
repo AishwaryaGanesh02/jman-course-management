@@ -1,12 +1,24 @@
 import React from "react";
 import Cookies from "js-cookie";
-// import avatar from "./assets/avatar.png";
 import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
-  const navigator = useNavigate();
+  const navigate = useNavigate();
   const userRole = Cookies.get("role");
-  const path = userRole === "admin" ? "/manageSkills" : "/updateskills";
+
+  const adminLinks = [
+    { name: "Dashboard", path: "/dashboard" },
+    { name: "All Courses", path: "/allcourses" },
+    { name: "Manage Employee Courses", path: "/updateCourses" },
+  ];
+
+  const employeeLinks = [
+    { name: "My Courses", path: "/allcourses" },
+    { name: "Skill Development", path: "/updateSkills" },
+  ];
+
+  const links = userRole === "admin" ? adminLinks : employeeLinks;
+
   const logout = () => {
     Cookies.remove("token");
     Cookies.remove("role");
@@ -14,55 +26,54 @@ const Sidebar = () => {
     Cookies.remove("degnid");
     alert("Successfully logged out");
     setTimeout(() => {
-      navigator("/");
+      navigate("/");
     }, 500);
   };
+
   return (
-    <aside className="fixed top-0 h-full sm:w-40 md:w-56 bg-blue-600 text-white flex flex-col">
-      <div className="flex-shrink-0 p-3 bg-blue-700">
+    <aside className="fixed top-0 h-full w-56 bg-primary-100 text-white flex flex-col">
+      <div className="flex-shrink-0 p-4 bg-primary-200">
         <div className="flex items-center justify-center my-3 gap-3">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="25"
-            height="25"
+            width="45"
+            height="45"
             fill="currentColor"
-            className="bi bi-gear-wide-connected"
+            class="bi bi-mortarboard-fill"
             viewBox="0 0 16 16"
           >
-            <path d="M7.068.727c.243-.97 1.62-.97 1.864 0l.071.286a.96.96 0 0 0 1.622.434l.205-.211c.695-.719 1.888-.03 1.613.931l-.08.284a.96.96 0 0 0 1.187 1.187l.283-.081c.96-.275 1.65.918.931 1.613l-.211.205a.96.96 0 0 0 .434 1.622l.286.071c.97.243.97 1.62 0 1.864l-.286.071a.96.96 0 0 0-.434 1.622l.211.205c.719.695.03 1.888-.931 1.613l-.284-.08a.96.96 0 0 0-1.187 1.187l.081.283c.275.96-.918 1.65-1.613.931l-.205-.211a.96.96 0 0 0-1.622.434l-.071.286c-.243.97-1.62.97-1.864 0l-.071-.286a.96.96 0 0 0-1.622-.434l-.205.211c-.695.719-1.888.03-1.613-.931l.08-.284a.96.96 0 0 0-1.186-1.187l-.284.081c-.96.275-1.65-.918-.931-1.613l.211-.205a.96.96 0 0 0-.434-1.622l-.286-.071c-.97-.243-.97-1.62 0-1.864l.286-.071a.96.96 0 0 0 .434-1.622l-.211-.205c-.719-.695-.03-1.888.931-1.613l.284.08a.96.96 0 0 0 1.187-1.186l-.081-.284c-.275-.96.918-1.65 1.613-.931l.205.211a.96.96 0 0 0 1.622-.434zM12.973 8.5H8.25l-2.834 3.779A4.998 4.998 0 0 0 12.973 8.5m0-1a4.998 4.998 0 0 0-7.557-3.779l2.834 3.78zM5.048 3.967l-.087.065zm-.431.355A4.98 4.98 0 0 0 3.002 8c0 1.455.622 2.765 1.615 3.678L7.375 8zm.344 7.646.087.065z" />
+            <path d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 .025.917l7.5 3a.5.5 0 0 0 .372 0L14 7.14V13a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1V6.739l.686-.275a.5.5 0 0 0 .025-.917z" />
+            <path d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466z" />
           </svg>
-          <h1 className="font-bold text-5xl">Skill Hub</h1>
+          <h1 className="font-bold text-5xl">Course Navigator</h1>
         </div>
       </div>
 
-      <div className="flex-grow p-3 text-4xl leading-10">
+      <div className="flex-grow p-4 text-3xl leading-10">
         <ul className="nav nav-pills flex-column mb-auto text-white">
+          {links.map((link, index) => (
+            <li key={index} className="nav-item">
+              <a
+                href={link.path}
+                className="nav-link text-white hover:bg-primary-300"
+              >
+                {link.name}
+              </a>
+            </li>
+          ))}
           <li className="nav-item">
-            <a href="/Dashboard" className="nav-link bg-dark active text-white">
-              Dashboard
-            </a>
-          </li>
-
-          <li className="nav-item">
-            <a href={path} className="nav-link text-white">
-              {userRole === "admin" ? "Manage Skills" : "Update Skill Set"}
-            </a>
-          </li>
-          <li className="nav-item">
-            <a onClick={logout} className="nav-link text-white">
+            <a
+              onClick={logout}
+              className="nav-link text-white hover:bg-primary-300"
+            >
               Logout
             </a>
           </li>
         </ul>
       </div>
 
-      <div className="flex-shrink-0 p-3 bg-blue-700 mt-auto flex items-center">
-        {/* <img
-          src={avatar}
-          alt="User Avatar"
-          className="w-10 h-10 rounded-full mr-3"
-        /> */}
-        <a href="/profile" className="text-white font-semibold">
+      <div className="flex-shrink-0 p-4 bg-primary-200 mt-auto flex items-center">
+        <a href="/profile" className="text-white font-semibold text-lg">
           View Profile
         </a>
       </div>

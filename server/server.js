@@ -19,7 +19,7 @@ app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: false }));
 
 app.use("/api/auth", authRoutes);
-app.use("/api/designations", designationRoutes);
+app.use("/api/skills", designationRoutes);
 app.use("/api/user-skills", designationRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/courses", courseRoutes);

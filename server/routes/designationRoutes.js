@@ -6,6 +6,6 @@ const {
 
 const router = express.Router();
 
-router.get("/", getDesignations);
-router.get("/skills", getSkills);
+// router.get("/", getDesignations);
+router.get("/", getSkills);
 module.exports = router;

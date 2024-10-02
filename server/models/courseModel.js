@@ -31,16 +31,29 @@ const CourseModel = {
   },
 
   getUserCoursesWithProgress: async () => {
-    return await prisma.employeeProgress.findMany({
+    const allProgressEntries = await prisma.employeeProgress.findMany({
       include: {
         course: true,
         user: true,
       },
     });
+
+    // Create a map to store the latest entry for each user-course combination
+    const latestEntries = {};
+    console.log(allProgressEntries)
+    allProgressEntries.forEach(entry => {
+      const key = `${entry.userId}-${entry.courseId}`;
+      if (!latestEntries[key] || new Date(entry.lastUpdated) > new Date(latestEntries[key].lastUpdated)) {
+        latestEntries[key] = entry;
+      }
+    });
+
+    return Object.values(latestEntries);
   },
 
   getCourseDetailsWithProgress: async (courseId) => {
     courseId = Number(courseId);
+
     // Fetch course details
     const course = await prisma.course.findUnique({
       where: { id: courseId },
@@ -52,29 +65,46 @@ const CourseModel = {
       include: { skill: true },
     });
 
-    // Count the number of completed progress entries for this course
-    const completedCount = await prisma.employeeProgress.count({
-      where: {
-        courseId,
-        progressStatus: "completed",
+    // Count progress statuses using groupBy
+    const progressCounts = await prisma.employeeProgress.groupBy({
+      by: ['progressStatus'],
+      where: { courseId },
+      _count: {
+        userId: true,
       },
     });
 
-    // Fetch all progress entries for this course to count unique userId
-    const progressEntries = await prisma.employeeProgress.findMany({
-      where: { courseId },
-      select: { userId: true },
+    // Transform progressCounts to a more usable object
+    const statusCounts = {
+      not_started: 0,
+      in_progress: 0,
+      completed: 0,
+    };
+
+    progressCounts.forEach(entry => {
+      if (entry.progressStatus in statusCounts) {
+        statusCounts[entry.progressStatus] = entry._count.userId;
+      }
     });
-    // Calculate the number of unique userId values
-    const enrolledCount = new Set(progressEntries.map((entry) => entry.userId))
-      .size;
 
     return {
       course,
       skills: skills.map((courseSkill) => courseSkill.skill),
-      completedCount: completedCount,
-      enrolledCount: enrolledCount,
-    };
+      progressCounts: statusCounts, // Include status counts in the return object
+    }
+  },
+
+  getAllCourses: async () => {
+    return await prisma.course.findMany({
+      include: {
+        courseSkills: {
+          include: {
+            skill: true,
+          },
+        },
+      },
+    })
   },
 };
+
 module.exports = CourseModel;

@@ -5,8 +5,9 @@ import Login from "./components/Login";
 import SignUp from "./components/Signup";
 import ProtectRoute from "./components/ProtectRoutes";
 import SkillSet from "./components/SkillSet";
-import CourseList from "./components/CourseList";
+import EmployeeCourseList from "./components/EmployeeCourseList";
 import CourseDetail from "./components/CourseDetail";
+import AllCourses from "./components/AllCourses";
 
 function App() {
   return (
@@ -21,15 +22,16 @@ function App() {
           />
           <Route
             path="/updateCourses"
-            element={<ProtectRoute element={<CourseList />} />}
+            element={<ProtectRoute element={<EmployeeCourseList />} />}
           />
           <Route
-            path="/courseInfo"
+            path="/courseInfo/:courseId"
             element={<ProtectRoute element={<CourseDetail />} />}
           />
-          {/* <Route path="/profile" element={<UserProfile />} />
-          <Route path="/manageSkills" element={<ManageSkills />} />
-          <Route path="/updateSkills" element={<UpdateSkillSet />} /> */}
+          <Route
+            path="/allCourses"
+            element={<ProtectRoute element={<AllCourses />} />}
+          />
         </Routes>
       </BrowserRouter>
     </div>

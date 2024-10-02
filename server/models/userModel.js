@@ -14,7 +14,15 @@ const UserModel = {
   },
 
   getAllUsers: async () => {
-    return await prisma.user.findMany();
+    return await prisma.user.findMany({
+      include: {
+        designation: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
   },
 
   getUserSkills: async (userId) => {
@@ -51,6 +59,29 @@ const UserModel = {
       },
     });
   },
+
+  createEmployeeProgress: async (userId, courseId) => {
+    return await prisma.employeeProgress.create({
+      data: {
+        userId: Number(userId),
+        courseId: Number(courseId),
+        progressStatus: 'not_started',
+        modulesCompleted: 0,
+        certificateProof: null,
+        lastUpdated: new Date(),
+      },
+    });
+  },
+
+  getUserProgress: async (userId, courseId) => {
+    return await prisma.employeeProgress.findMany({
+      where: {
+        courseId: Number(courseId),
+        userId: Number(userId),
+      },
+    });
+  },
 };
+
 
 module.exports = UserModel;

@@ -26,10 +26,14 @@ exports.getCourseDesignations = async (req, res) => {
 
 // Get list of courses that a user doesn't already have
 exports.getAvailableCourses = async (req, res) => {
-  const userId = req.userId;
+  const userId = parseInt(req.params.id, 10);
+
+  if (isNaN(userId)) {
+    return res.status(400).json({ error: "Invalid user ID" });
+  };
   try {
     const availableCourses = await CourseModel.getAvailableCourses(userId);
-    res.status(200).json({ availableCourses });
+    res.status(200).json(availableCourses);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch available courses" });
   }
@@ -69,9 +73,7 @@ exports.getCourseDetails = async (req, res) => {
   const { courseId } = req.params;
 
   try {
-    const courseDetails = await CourseModel.getCourseDetailsWithProgress(
-      courseId
-    );
+    const courseDetails = await CourseModel.getCourseDetailsWithProgress(courseId);
 
     // Format the response
     const response = {
@@ -83,9 +85,8 @@ exports.getCourseDetails = async (req, res) => {
         language: courseDetails.course.language,
         totalTime: courseDetails.course.totalTime,
         totalModules: courseDetails.course.totalModules,
-        completedCount: courseDetails.completedCount,
-        enrolledCount: courseDetails.enrolledCount,
         skills: courseDetails.skills.map((courseSkill) => courseSkill.name),
+        progressCounts: courseDetails.progressCounts,  // Include progress entries here
       },
     };
 
@@ -93,5 +94,28 @@ exports.getCourseDetails = async (req, res) => {
   } catch (error) {
     console.error("Error fetching course details:", error);
     res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+// Get list of courses
+exports.getAllCourses = async (req, res) => {
+  try {
+    const courses = await CourseModel.getAllCourses();
+    const coursesWithDetails = courses.map(course => ({
+      id: course.id,
+      title: course.title,
+      url: course.url,
+      shortIntro: course.shortIntro,
+      difficulty: course.difficulty,
+      language: course.language,
+      totalTime: course.totalTime,
+      totalModules: course.totalModules,
+      skills: course.courseSkills.map(courseSkill => courseSkill.skill.name),
+    }));
+
+    res.status(200).json(coursesWithDetails);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch courses" });
   }
 };

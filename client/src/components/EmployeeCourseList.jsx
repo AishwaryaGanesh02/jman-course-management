@@ -2,11 +2,41 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import Cookies from "js-cookie";
 import axios from "axios";
+import AssignCourseModal from "./AssignCourseModel";
 
-const CourseList = () => {
+const EmployeeCourseList = () => {
   const token = Cookies.get("token");
   const [coursesData, setCoursesData] = useState([]);
   const [sortOption, setSortOption] = useState("completionStatus");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleAssignCourse = async (courseData) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:1200/api/users/add-employee-progress",
+        courseData,
+        {
+          headers: {
+            authorization: `${token}`,
+          },
+        }
+      );
+      alert(response.data.message);
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error("Error adding skill:", error);
+    }
+    console.log("Course assigned:", courseData);
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -22,7 +52,7 @@ const CourseList = () => {
     };
 
     fetchCourses();
-  }, [token]);
+  }, [token, isModalOpen]);
 
   const getRowColor = (status) => {
     switch (status) {
@@ -57,9 +87,19 @@ const CourseList = () => {
         <h1 className="font-extrabold text-2xl text-center">
           User Course Progress
         </h1>
-        <button className="mb-4 px-4 py-2 bg-blue-500 text-white rounded">
-          Add Course
+        <button
+          onClick={handleOpenModal}
+          className="mb-4 px-4 py-2 bg-blue-500 text-white rounded"
+        >
+          Assign Course
         </button>
+
+        {isModalOpen && (
+          <AssignCourseModal
+            onClose={handleCloseModal}
+            onAssignCourse={handleAssignCourse}
+          />
+        )}
 
         <div className="mb-4">
           <label className="mr-2">Sort by:</label>
@@ -135,4 +175,4 @@ const CourseList = () => {
   );
 };
 
-export default CourseList;
+export default EmployeeCourseList;
