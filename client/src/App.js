@@ -10,6 +10,7 @@ import CourseDetail from "./components/CourseDetail";
 import AllCourses from "./components/AllCourses";
 import Dashboard from "./components/Dashboard";
 import NotFound from "./components/NotFound"; // Create this component
+import Profile from "./components/Profile";
 
 function App() {
   return (
@@ -42,7 +43,7 @@ function App() {
           />
           <Route
             path="/profile"
-            element={<ProtectRoute element={<Dashboard />} />}
+            element={<ProtectRoute element={<Profile />} />}
           />
 
           {/* Not Found Route */}

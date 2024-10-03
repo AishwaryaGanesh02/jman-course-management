@@ -115,3 +115,23 @@ exports.getUserProgress = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+exports.getUserInfo = async (req, res) => {
+  try {
+    const userSkills = await UserModel.findUserById(req.userId);
+    console.log(userSkills);
+    const response = {
+      data: {
+        name: userSkills.username,
+        email: userSkills.email,
+        gender: userSkills.gender,
+        phoneNumber: userSkills.phoneNumber,
+        designtion: userSkills.designation.name,
+      },
+    };
+
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch user skills" });
+  }
+};

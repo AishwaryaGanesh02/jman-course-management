@@ -6,7 +6,17 @@ const UserModel = {
   },
 
   findUserById: async (id) => {
-    return await prisma.user.findUnique({ where: { id } });
+    const userId = Number(id);
+    return await prisma.user.findUnique({
+      where: { id: userId },
+      include: {
+        designation: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
   },
 
   findUserByEmail: async (email) => {
