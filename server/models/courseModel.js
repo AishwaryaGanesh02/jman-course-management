@@ -89,8 +89,8 @@ const CourseModel = {
 
     return {
       course,
-      skills: skills.map((courseSkill) => courseSkill.skill),
-      progressCounts: statusCounts, // Include status counts in the return object
+      skills,
+      progressCounts: statusCounts,
     }
   },
 

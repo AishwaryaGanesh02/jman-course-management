@@ -31,7 +31,6 @@ const AddProgressModal = ({
       progressStatus,
       certificateProof:
         modulesCompleted === totalModules ? certificateURL : null,
-      lastUpdated: new Date().toISOString(),
     };
 
     onAddProgress(newProgress);

@@ -111,12 +111,12 @@ const AllCourses = () => {
                 onChange={(e) => setSearch(e.target.value)}
               />
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 ">
               {filteredCourses.map((course) => (
                 <Link to={`/courseInfo/${course.id}`}>
                   <div
                     key={course.id}
-                    className="border rounded-lg p-4 shadow-md"
+                    className="border rounded-lg p-4 shadow-md rounded-2xl shadow-md shadow-primary-300"
                   >
                     <h2 className="text-xl font-bold truncate">
                       {course.title}

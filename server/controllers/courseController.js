@@ -74,8 +74,11 @@ exports.getCourseDetails = async (req, res) => {
 
   try {
     const courseDetails = await CourseModel.getCourseDetailsWithProgress(courseId);
-
-    // Format the response
+    const skills = courseDetails.skills.map(cs => ({
+      skillName: cs.skill.name,
+      level: cs.level,
+      skillId: cs.skillId
+    }));
     const response = {
       data: {
         title: courseDetails.course.title,
@@ -85,7 +88,7 @@ exports.getCourseDetails = async (req, res) => {
         language: courseDetails.course.language,
         totalTime: courseDetails.course.totalTime,
         totalModules: courseDetails.course.totalModules,
-        skills: courseDetails.skills.map((courseSkill) => courseSkill.name),
+        skills: skills,//.map((courseSkill) => courseSkill.name),
         progressCounts: courseDetails.progressCounts,  // Include progress entries here
       },
     };

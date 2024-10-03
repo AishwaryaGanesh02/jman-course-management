@@ -50,24 +50,24 @@ const UserModel = {
     });
   },
   // Create a new user skill
-  createUserSkill: async (userId, skillId, level) => {
+  createUserSkill: async (employeeId, skillId, level) => {
     return await prisma.userSkill.create({
       data: {
-        userId: Number(userId),
+        userId: Number(employeeId),
         skillId: Number(skillId),
         level,
       },
     });
   },
 
-  createEmployeeProgress: async (userId, courseId) => {
+  createEmployeeProgress: async (userId, courseId, progressStatus, modulesCompleted, certificateProof) => {
     return await prisma.employeeProgress.create({
       data: {
         userId: Number(userId),
         courseId: Number(courseId),
-        progressStatus: 'not_started',
-        modulesCompleted: 0,
-        certificateProof: null,
+        progressStatus,
+        modulesCompleted,
+        certificateProof,
         lastUpdated: new Date(),
       },
     });

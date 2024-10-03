@@ -77,6 +77,10 @@ const AssignCourseModal = ({ onClose, onAssignCourse }) => {
     const body = {
       employeeId: selectedEmployee,
       courseId: selectedCourse,
+      progressStatus: "not_started",
+      modulesCompleted: 0,
+      certificateProof: null,
+      action: "assigned",
     };
 
     onAssignCourse(body);

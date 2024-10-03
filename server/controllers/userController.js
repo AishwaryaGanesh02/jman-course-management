@@ -66,17 +66,30 @@ exports.addUserSkill = async (req, res) => {
 
 // Create employee progress
 exports.createEmployeeProgress = async (req, res) => {
-  const { employeeId, courseId } = req.body;
-  console.log("00000", req.body)
+  const { employeeId, courseId, progressStatus, modulesCompleted, certificateProof, action, skills } = req.body;
+  console.log("Request Body:", req.body);
+
   try {
-    const progressEntry = await UserModel.createEmployeeProgress(employeeId, courseId);
-    console.log("00000")
-    res.status(201).json({ message: "Course assigned successfully", progressEntry });
+    // Create the progress entry
+    const progressEntry = await UserModel.createEmployeeProgress(employeeId, courseId, progressStatus, modulesCompleted, certificateProof);
+
+    // Only create user skills if progressStatus is 'completed'
+    if (progressStatus === 'completed' && skills && Array.isArray(skills)) {
+      const skillPromises = skills.map(skill =>
+        UserModel.createUserSkill(employeeId, skill.skillId, skill.level)
+      );
+
+      await Promise.all(skillPromises);
+    }
+
+    console.log("Progress Entry Created:", progressEntry);
+    res.status(201).json({ message: `Course ${action} successfully`, progressEntry });
   } catch (error) {
-    console.error(error);
+    console.error("Error creating employee progress:", error);
     res.status(500).json({ error: "Failed to create employee progress" });
   }
 };
+
 
 exports.getUserProgress = async (req, res) => {
   const courseId = parseInt(req.params.courseId, 10);

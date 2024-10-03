@@ -6,31 +6,47 @@ import Chart from "react-apexcharts";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const EmployeeProgress = ({ completedModules, progressData, course }) => {
+const EmployeeProgress = ({
+  completedModules,
+  progressData,
+  course,
+  courseId,
+}) => {
   const token = Cookies.get("token");
   const [showModal, setShowModal] = useState(false);
   const totalModules = course.totalModules;
 
   const handleAddProgress = async (newProgress) => {
     console.log(newProgress);
-    setShowModal(false);
-    // try {
-    //   await axios.post(
-    //     "http://localhost:1200/api/users/update-progress",
-    //     newProgress,
-    //     {
-    //       headers: {
-    //         authorization: `${token}`,
-    //       },
-    //     }
-    //   );
-    //   setProgressData((prev) => [...prev, newProgress]);
-    //   setShowModal(false);
-    //   toast.success("Progress updated successfully!");
-    // } catch (error) {
-    //   console.error("Error updating progress:", error);
-    //   toast.error("Failed to update progress.");
-    // }
+    const employeeId = Cookies.get("userid");
+    console.log(course, "----");
+    const updatedProgress = {
+      ...newProgress,
+      employeeId,
+      courseId,
+      action: "updated",
+      skills: course.skills,
+    };
+    console.log(updatedProgress);
+    try {
+      const response = await axios.post(
+        "http://localhost:1200/api/users/add-employee-progress",
+        updatedProgress,
+        {
+          headers: {
+            authorization: `${token}`,
+          },
+        }
+      );
+      toast.success(response.data.message);
+      setShowModal(false);
+      // const timer = setTimeout(() => {
+      //   window.location.reload();
+      // }, 2000);
+      // return () => clearTimeout(timer);
+    } catch (error) {
+      console.error("Error adding skill:", error);
+    }
   };
 
   const radialBarOptions = {

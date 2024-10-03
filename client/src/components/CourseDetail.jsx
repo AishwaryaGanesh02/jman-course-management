@@ -22,6 +22,7 @@ const CourseInformation = () => {
           `http://localhost:1200/api/courses/${courseId}/details`,
           { headers: { authorization: `${token}` } }
         );
+        console.log(response.data.data);
         setCourse(response.data.data);
       } catch (error) {
         console.error("Error fetching course details:", error);
@@ -55,7 +56,6 @@ const CourseInformation = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
-
   return (
     <div className="flex">
       <Sidebar />
@@ -103,18 +103,20 @@ const CourseInformation = () => {
                 >
                   <circle cx="10" cy="10" r="4" />
                 </svg>
-                {skill}
+                <span>
+                  {skill.skillName} ({skill.level})
+                </span>
               </div>
             ))}
           </div>
         </div>
-
         <EnrollmentStatusChart course={course} />
         {Cookies.get("role") === "employee" && (
           <EmployeeProgress
             completedModules={completedModules}
             progressData={progressData}
             course={course}
+            courseId={courseId}
           />
         )}
       </div>
