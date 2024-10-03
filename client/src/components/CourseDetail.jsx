@@ -69,7 +69,7 @@ const CourseInformation = () => {
               {course.url}
             </a>
           </p>
-          <div className="px-4 flex justify-between gap-8 text-center ml-5 mt-5 font-medium">
+          <div className="px-4 flex justify-around gap-8 text-center ml-5 mt-5 font-medium">
             <div className="h-28 text-black w-full rounded-2xl shadow-md shadow-primary-300 flex flex-col items-center justify-center">
               <h3>Total Time</h3>
               <p className="italic font-bold text-xl">
@@ -92,7 +92,7 @@ const CourseInformation = () => {
         </div>
 
         <div className="skills mt-5">
-          <h3>Skills Acquired:</h3>
+          <h3>Skills</h3>
           <div className="grid grid-cols-2 gap-4">
             {course.skills.map((skill, index) => (
               <div key={index} className="flex items-center">

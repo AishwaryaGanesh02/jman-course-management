@@ -8,6 +8,8 @@ import SkillSet from "./components/SkillSet";
 import EmployeeCourseList from "./components/EmployeeCourseList";
 import CourseDetail from "./components/CourseDetail";
 import AllCourses from "./components/AllCourses";
+import Dashboard from "./components/Dashboard";
+import NotFound from "./components/NotFound"; // Create this component
 
 function App() {
   return (
@@ -32,6 +34,19 @@ function App() {
             path="/allCourses"
             element={<ProtectRoute element={<AllCourses />} />}
           />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectRoute element={<Dashboard />} allowedRoles={["admin"]} />
+            }
+          />
+          <Route
+            path="/profile"
+            element={<ProtectRoute element={<Dashboard />} />}
+          />
+
+          {/* Not Found Route */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </div>

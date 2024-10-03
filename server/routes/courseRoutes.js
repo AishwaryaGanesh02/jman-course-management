@@ -5,7 +5,8 @@ const {
   getAvailableCourses,
   getUserCoursesWithProgress,
   getCourseDetails,
-  getAllCourses
+  getAllCourses,
+  getCourseId,
 } = require("../controllers/courseController");
 const authenticateToken = require("../middlewares/authMiddleware");
 
@@ -17,5 +18,6 @@ router.get("/available/:id", authenticateToken, getAvailableCourses);
 router.get("/user/progress", authenticateToken, getUserCoursesWithProgress);
 router.get("/:courseId/details", authenticateToken, getCourseDetails);
 router.get("/", authenticateToken, getAllCourses);
+router.get("/valid-ids", authenticateToken, getCourseId);
 
 module.exports = router;

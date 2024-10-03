@@ -49,18 +49,60 @@ const UserModel = {
       },
     });
   },
-  // Create a new user skill
+
   createUserSkill: async (employeeId, skillId, level) => {
-    return await prisma.userSkill.create({
-      data: {
-        userId: Number(employeeId),
-        skillId: Number(skillId),
-        level,
+    console.log("--");
+    const userId = Number(employeeId);
+    const skillIdNum = Number(skillId);
+    const levelOrder = {
+      Beginner: 1,
+      Intermediate: 2,
+      Advanced: 3,
+    };
+    console.log(userId, skillIdNum, level);
+    // Check if the user skill already exists
+    const existingUserSkill = await prisma.userSkill.findFirst({
+      where: {
+        AND: [{ userId: userId }, { skillId: skillIdNum }],
       },
     });
+    console.log(existingUserSkill, "--------");
+    // } catch (error) {
+    //   console.error("Error fetching user skill:", error);
+    // }
+    // If it exists, compare levels
+    if (existingUserSkill) {
+      const existingLevel = existingUserSkill.level;
+
+      // Compare the levels
+      if (levelOrder[level] > levelOrder[existingLevel]) {
+        return await prisma.userSkill.update({
+          where: {
+            id: existingUserSkill.id,
+          },
+          data: {
+            level,
+          },
+        });
+      }
+    } else {
+      return await prisma.userSkill.create({
+        data: {
+          userId,
+          skillId: skillIdNum,
+          level,
+        },
+      });
+    }
   },
 
-  createEmployeeProgress: async (userId, courseId, progressStatus, modulesCompleted, certificateProof) => {
+  createEmployeeProgress: async (
+    userId,
+    courseId,
+    progressStatus,
+    modulesCompleted,
+    certificateProof
+  ) => {
     return await prisma.employeeProgress.create({
       data: {
         userId: Number(userId),
@@ -82,6 +124,5 @@ const UserModel = {
     });
   },
 };
-
 
 module.exports = UserModel;

@@ -38,7 +38,7 @@ export default function Login() {
         Cookies.set("degnid", parseRes.degnid);
         alert("Successfully Logged in");
         setTimeout(() => {
-          navigate("/dashboard");
+          navigate(parseRes.role === "admin" ? "/dashboard" : "/allCourses");
         }, 1000);
       } else {
         alert("Invalid password or Invalid Email");

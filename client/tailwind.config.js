@@ -5,14 +5,14 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          100: "#222831",  // Darker shade
-          200: "#31363F",  // Medium shade
-          300: "#76ABAE",  // Accent color
+          100: "#222831", // Darker shade
+          200: "#31363F", // Medium shade
+          300: "#76ABAE", // Accent color
         },
         mainbg: "#EEEEEE", // Light shade for text/background
         black: "#000",
-        bg: "#F9F9F9",
-        textbg: "#f2f2f3",
+        bg: "#f1f1f1",
+        textbg: "#e3e3e3",
       },
       spacing: {},
       fontFamily: {

@@ -1,4 +1,3 @@
-// AllCourses.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -17,6 +16,7 @@ const AllCourses = () => {
   const [difficultyLevels] = useState(["Beginner", "Intermediate", "Advanced"]); // Difficulty levels can be hardcoded or fetched from an API
 
   const token = Cookies.get("token");
+  const role = Cookies.get("role");
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -84,17 +84,42 @@ const AllCourses = () => {
     courses,
   ]);
 
+  const statusStyles = {
+    in_progress: { label: "In Progress", color: "text-yellow-500" },
+    not_started: { label: "Not Started", color: "text-red-500" },
+    completed: { label: "Completed", color: "text-green-500" },
+  };
+
+  // Function to group courses by progressStatus
+  const groupCoursesByProgress = () => {
+    return filteredCourses.reduce((acc, course) => {
+      if (!acc[course.progressStatus]) {
+        acc[course.progressStatus] = [];
+      }
+      acc[course.progressStatus].push(course);
+      return acc;
+    }, {});
+  };
+
+  // Grouped courses
+  const groupedCourses = groupCoursesByProgress();
+  const orderedCourses = {
+    in_progress: groupedCourses.in_progress || [],
+    not_started: groupedCourses.not_started || [],
+    completed: groupedCourses.completed || [],
+  };
+  console.log(orderedCourses);
   return (
-    <div className="flex">
+    <div className="flex bg-mainbg h-screen">
       <Sidebar />
-      <div className="ml-64 ">
-        <h1 className="font-extrabold text-2xl py-8">View All Courses</h1>
-        <div className="flex p-4">
+      <div className="ml-64 w-full h-screen overflow-y-auto flex flex-col">
+        <h1 className="font-extrabold text-19xl py-8">View All Courses</h1>
+        <div className="flex mr-5 p-4 bg-bg shadow shadow-gray-400	">
           <CourseFilters
             skills={skills}
             selectedSkills={selectedSkills}
             setSelectedSkills={setSelectedSkills}
-            languages={[...new Set(courses.map((course) => course.language))]} // Example languages, replace with your API data
+            languages={[...new Set(courses.map((course) => course.language))]}
             selectedLanguages={selectedLanguages}
             setSelectedLanguages={setSelectedLanguages}
             difficultyLevels={difficultyLevels}
@@ -111,30 +136,60 @@ const AllCourses = () => {
                 onChange={(e) => setSearch(e.target.value)}
               />
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 ">
-              {filteredCourses.map((course) => (
-                <Link to={`/courseInfo/${course.id}`}>
-                  <div
-                    key={course.id}
-                    className="border rounded-lg p-4 shadow-md rounded-2xl shadow-md shadow-primary-300"
-                  >
-                    <h2 className="text-xl font-bold truncate">
-                      {course.title}
-                    </h2>
-                    <p className="mt-2 truncate">
-                      {course.shortIntro || "No description available."}
-                    </p>
-                    <p className="mt-2">Total Time: {course.totalTime} mins</p>
-                    <p>Total Modules: {course.totalModules}</p>
-                  </div>{" "}
-                </Link>
-              ))}
-            </div>
+            {role == "employee" ? (
+              Object.keys(orderedCourses).map((status) => {
+                const { label, color } = statusStyles[status] || {
+                  label: status,
+                  color: "text-gray-500",
+                };
+                return (
+                  <div key={status} className="mb-8 p-3">
+                    <h2 className={`font-bold text-xl ${color}`}>{label}</h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {orderedCourses[status].map((course) => (
+                        <Link to={`/courseInfo/${course.id}`} key={course.id}>
+                          <div className="bg-white border rounded-lg p-4 shadow-md rounded-2xl shadow-md shadow-primary-300">
+                            <h2 className="text-xl font-bold truncate">
+                              {course.title}
+                            </h2>
+                            <p className="mt-2 truncate">
+                              {course.shortIntro || "No description available."}
+                            </p>
+                            <p className="mt-2">
+                              Total Time: {course.totalTime} mins
+                            </p>
+                            <p>Total Modules: {course.totalModules}</p>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {filteredCourses.map((course) => (
+                  <Link to={`/courseInfo/${course.id}`} key={course.id}>
+                    <div className="border rounded-lg p-4 shadow-md rounded-2xl shadow-md shadow-primary-300">
+                      <h2 className="text-xl font-bold truncate">
+                        {course.title}
+                      </h2>
+                      <p className="mt-2 truncate">
+                        {course.shortIntro || "No description available."}
+                      </p>
+                      <p className="mt-2">
+                        Total Time: {course.totalTime} mins
+                      </p>
+                      <p>Total Modules: {course.totalModules}</p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
     </div>
   );
 };
-
 export default AllCourses;
