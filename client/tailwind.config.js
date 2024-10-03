@@ -9,13 +9,10 @@ module.exports = {
           200: "#31363F",  // Medium shade
           300: "#76ABAE",  // Accent color
         },
-        white: "#EEEEEE", // Light shade for text/background
+        mainbg: "#EEEEEE", // Light shade for text/background
         black: "#000",
         bg: "#F9F9F9",
         textbg: "#f2f2f3",
-        secondary: "#ff9900", // You can keep or change this
-        presgreen: "#16978E",
-        presred: "#FF095C",
       },
       spacing: {},
       fontFamily: {
