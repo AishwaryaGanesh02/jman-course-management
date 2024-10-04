@@ -2,6 +2,7 @@ import React from "react";
 import Chart from "react-apexcharts";
 
 const EnrollmentStatusChart = ({ course }) => {
+  console.log(course);
   const donutChartOptions = {
     series: [
       course?.progressCounts?.completed || 0,
@@ -11,10 +12,10 @@ const EnrollmentStatusChart = ({ course }) => {
     options: {
       chart: {
         type: "donut",
-        height: 280,
+        height: 350,
       },
       labels: ["Completed", "In Progress", "Not Started"],
-      colors: ["#4CAF50", "#FFEB3B", "#F44336"], // Green, Yellow, Red
+      colors: ["#76ABAE", "#9ca3af", "#31363F"],
       legend: {
         position: "bottom",
       },
@@ -65,7 +66,7 @@ const EnrollmentStatusChart = ({ course }) => {
 
   return (
     <div className="completion-chart mt-5">
-      <h3>Enrollment Status</h3>
+      <h3 className="text-xl font-bold text-primary-300">Enrollment Status</h3>
       <Chart
         options={donutChartOptions.options}
         series={donutChartOptions.series}

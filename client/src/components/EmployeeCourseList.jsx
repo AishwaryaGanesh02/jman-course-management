@@ -4,13 +4,15 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import AssignCourseModal from "./AssignCourseModel";
 import ProgressFilter from "./ProgressFilter";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const EmployeeCourseList = () => {
   const token = Cookies.get("token");
   const [coursesData, setCoursesData] = useState([]);
   const [sortOption, setSortOption] = useState("completionStatus");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [search, setSearch] = useState(""); // State for search input
+  const [search, setSearch] = useState("");
 
   const [designations, setDesignations] = useState([]);
   const [selectedDesignation, setSelectedDesignation] = useState([]);
@@ -40,10 +42,11 @@ const EmployeeCourseList = () => {
           },
         }
       );
-      alert(response.data.message);
+      toast.success(response.data.message);
       setIsModalOpen(false);
     } catch (error) {
       console.error("Error adding skill:", error);
+      toast.error("Error assigning course.");
     }
     console.log("Course assigned:", courseData);
   };
@@ -55,7 +58,6 @@ const EmployeeCourseList = () => {
           "http://localhost:1200/api/courses/user/progress",
           { headers: { authorization: `${token}` } }
         );
-        console.log(response.data);
         setCoursesData(response.data);
 
         const uniqueDesignations = [
@@ -90,14 +92,14 @@ const EmployeeCourseList = () => {
       selectedDifficulties.includes(course.difficulty);
     const matchesSearch = course.courseName
       .toLowerCase()
-      .includes(search.toLowerCase()); // Search match
+      .includes(search.toLowerCase());
 
     return (
       matchesDesignation &&
       matchesStatus &&
       matchesUsername &&
       matchesDifficulty &&
-      matchesSearch // Include search match in the return
+      matchesSearch
     );
   });
 
@@ -116,6 +118,7 @@ const EmployeeCourseList = () => {
 
   return (
     <div className="flex bg-mainbg h-screen">
+      <ToastContainer />
       <Sidebar />
       <div className="ml-64 w-full h-screen overflow-y-auto flex flex-col">
         <h1 className="font-extrabold text-19xl py-8">User Course Progress</h1>
@@ -139,12 +142,24 @@ const EmployeeCourseList = () => {
             <div className="flex-grow mr-5">
               <div className="flex gap-10 justify-between mb-4 mr-5">
                 <div className="basis-3/4 rounded h-12 ">
-                  <input
-                    type="text"
-                    placeholder="Search courses..."
-                    className="border rounded p-2 w-full"
-                    onChange={(e) => setSearch(e.target.value)} // Update search state
-                  />
+                  <div className="mb-4 flex items-center gap-2 border rounded p-2 w-full bg-white rounded shadow-md">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      fill="#9ca3af"
+                      class="bi bi-search"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                    </svg>
+                    <input
+                      type="text"
+                      placeholder="Search courses..."
+                      className="w-full bg-white focus:outline-none"
+                      onChange={(e) => setSearch(e.target.value)}
+                    />
+                  </div>
                 </div>
                 <button
                   onClick={handleOpenModal}

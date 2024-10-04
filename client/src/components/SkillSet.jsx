@@ -44,22 +44,20 @@ const SkillSet = () => {
   };
 
   return (
-    <div className="flex">
+    <div className="flex bg-mainbg h-screen">
       <Sidebar />
-      <div className="m-3 sm:ml-42 md:ml-60">
-        <h1 className="font-extrabold text-2xl text-center">
-          Manage your skill set
-        </h1>
+      <div className="ml-64 w-full h-screen overflow-y-auto flex flex-col">
+        <h1 className="font-extrabold text-19xl py-8">Manage your skill set</h1>
         {showModal && (
           <AddUserSkillModel
             onClose={() => setShowModal(false)}
             onAddSkill={handleAddSkill}
           />
         )}
-        <div className="flex justify-end mb-4">
+        <div className="flex justify-end mb-4 mr-10">
           <button
             onClick={() => setShowModal(true)}
-            className="bg-blue-600 text-white px-4 py-2 rounded-md flex items-center gap-2 hover:bg-blue-700 transition duration-300"
+            className="ml-2 flex px-4 py-2 bg-white items-center border border-primary-300 rounded-md text-center gap-2 transition duration-300 hover:text-white hover:bg-primary-200 shadow-md"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -76,9 +74,9 @@ const SkillSet = () => {
           </button>
         </div>
 
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-          <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <div className="mr-10 ml-4 overflow-x-auto shadow-md sm:rounded-lg">
+          <table className="min-w-full text-sm text-left text-gray-500">
+            <thead className="text-xs text-gray-700 uppercase bg-primary-300">
               <tr>
                 <th scope="col" className="px-6 py-3">
                   Skills
@@ -88,17 +86,14 @@ const SkillSet = () => {
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="bg-bg">
               {userSkillsData.length > 0 ? (
                 userSkillsData.map((userSkill, index) => (
-                  <tr
-                    key={index}
-                    className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
-                  >
-                    <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  <tr key={index} className="border-b">
+                    <td className="px-6 py-4 font-medium text-gray-900">
                       {userSkill.skill}
                     </td>
-                    <td className="px-6 py-4">{userSkill.level}</td>{" "}
+                    <td className="px-6 py-4">{userSkill.level}</td>
                   </tr>
                 ))
               ) : (

@@ -26,6 +26,7 @@ const AllCourses = () => {
             authorization: `${token}`,
           },
         });
+        console.log(response.data);
         setCourses(response.data);
         setFilteredCourses(response.data);
       } catch (error) {
@@ -113,7 +114,9 @@ const AllCourses = () => {
     <div className="flex bg-mainbg h-screen">
       <Sidebar />
       <div className="ml-64 w-full h-screen overflow-y-auto flex flex-col">
-        <h1 className="font-extrabold text-19xl py-8">View All Courses</h1>
+        <h1 className="font-extrabold text-19xl py-8">
+          {role == "employee" ? " Your" : " All"} Courses
+        </h1>
         <div className="flex mr-5 p-4 bg-bg shadow shadow-gray-400	">
           <CourseFilters
             skills={skills}
@@ -128,11 +131,21 @@ const AllCourses = () => {
           />
 
           <div className="flex-grow mx-7">
-            <div className="mb-4 flex">
+            <div className="mb-4 flex items-center gap-2 border rounded p-2 w-full bg-white rounded shadow-md">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                fill="#9ca3af"
+                class="bi bi-search"
+                viewBox="0 0 16 16"
+              >
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+              </svg>
               <input
                 type="text"
                 placeholder="Search courses..."
-                className="border rounded p-2 w-full"
+                className="w-full bg-white focus:outline-none"
                 onChange={(e) => setSearch(e.target.value)}
               />
             </div>
@@ -142,6 +155,10 @@ const AllCourses = () => {
                   label: status,
                   color: "text-gray-500",
                 };
+                // Check if there are any courses for the current status
+                if (orderedCourses[status].length === 0) {
+                  return null; // Skip rendering if there are no courses
+                }
                 return (
                   <div key={status} className="mb-8 p-3">
                     <h2 className={`font-bold text-xl ${color}`}>{label}</h2>

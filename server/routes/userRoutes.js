@@ -8,6 +8,7 @@ const {
   createEmployeeProgress,
   getUserProgress,
   getUserInfo,
+  editUserInfo,
 } = require("../controllers/userController");
 
 const router = express.Router();
@@ -16,6 +17,7 @@ router.get("/other-skills", authenticateToken, getOtherSkills);
 router.post("/add-skills", authenticateToken, addUserSkill);
 router.get("/", authenticateToken, getAllUsers);
 router.get("/userInfo", authenticateToken, getUserInfo);
+router.put("/edit/userInfo", authenticateToken, editUserInfo);
 router.post(
   "/add-employee-progress",
   authenticateToken,

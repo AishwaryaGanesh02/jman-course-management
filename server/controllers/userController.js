@@ -126,12 +126,26 @@ exports.getUserInfo = async (req, res) => {
         email: userSkills.email,
         gender: userSkills.gender,
         phoneNumber: userSkills.phoneNumber,
-        designtion: userSkills.designation.name,
+        designation: userSkills.designation.name,
       },
     };
 
     res.status(200).json(response);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch user skills" });
+  }
+};
+
+exports.editUserInfo = async (req, res) => {
+  const { name, phoneNumber, gender } = req.body;
+  const userId = req.userId;
+
+  try {
+    const a = await UserModel.editUserInfo(userId, name, phoneNumber, gender);
+    console.log(a);
+    res.status(200).json({ message: "User info updated successfully." });
+  } catch (error) {
+    console.error("Failed to update user info:", error);
+    res.status(500).json({ error: "Failed to update user info." });
   }
 };

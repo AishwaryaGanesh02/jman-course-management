@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
-import Cookies from "js-cookie";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddProgressModal = ({
   onClose,
@@ -8,7 +8,7 @@ const AddProgressModal = ({
   totalModules,
   completedModules,
 }) => {
-  const [modulesCompleted, setModulesCompleted] = useState(0);
+  const [modulesCompleted, setModulesCompleted] = useState(completedModules);
   const [certificateURL, setCertificateURL] = useState("");
 
   const handleModulesChange = (event) => {
@@ -18,10 +18,30 @@ const AddProgressModal = ({
   const handleURLChange = (event) => {
     setCertificateURL(event.target.value);
   };
+  const isValidURL = (string) => {
+    const urlPattern = new RegExp(
+      "^(https?:\\/\\/)?" + // protocol
+        "((([a-z\\d](?:(?:[a-z\\d-]*[a-z\\d])?)\\.)+[a-z]{2,})|" + // domain name
+        "localhost|" + // localhost
+        "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}|" + // IPv4
+        "\\[?[a-fA-F0-9]*:[a-fA-F0-9:]+\\]?)" + // IPv6
+        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+        "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+        "(\\#[-a-z\\d_]*)?$",
+      "i"
+    ); // fragment locator
+    return !!urlPattern.test(string);
+  };
 
   const handleSave = async () => {
     if (modulesCompleted < 0 || modulesCompleted > totalModules) {
-      return alert("Modules completed must be between 0 and total modules.");
+      return toast.error(
+        `Modules completed must be between completed modules and total modules(${totalModules}).`
+      );
+    }
+
+    if (modulesCompleted === totalModules && !isValidURL(certificateURL)) {
+      return toast.error("Please enter a valid URL for the certificate.");
     }
 
     const progressStatus =
@@ -32,10 +52,8 @@ const AddProgressModal = ({
       certificateProof:
         modulesCompleted === totalModules ? certificateURL : null,
     };
-
     onAddProgress(newProgress);
   };
-
   return (
     <div
       className="relative z-10"
@@ -63,11 +81,7 @@ const AddProgressModal = ({
                     id="modules-completed"
                     type="number"
                     className="block "
-                    value={
-                      modulesCompleted === 0
-                        ? completedModules
-                        : modulesCompleted
-                    }
+                    value={modulesCompleted}
                     onChange={handleModulesChange}
                     min={completedModules}
                     max={totalModules}

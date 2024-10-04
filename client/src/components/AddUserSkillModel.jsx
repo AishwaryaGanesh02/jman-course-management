@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddSkillModal = ({ onClose, onAddSkill }) => {
   const [allSkills, setAllSkills] = useState([]);
   const [selectedSkill, setSelectedSkill] = useState("");
   const [selectedLevel, setSelectedLevel] = useState("Beginner");
   const token = Cookies.get("token");
+
   useEffect(() => {
     const fetchAllSkills = async () => {
       try {
@@ -37,7 +40,7 @@ const AddSkillModal = ({ onClose, onAddSkill }) => {
 
   const handleSave = async () => {
     if (!selectedSkill) {
-      return alert("Select a skill");
+      return toast.error("Select a skill");
     }
 
     const body = {
@@ -45,6 +48,7 @@ const AddSkillModal = ({ onClose, onAddSkill }) => {
       level: selectedLevel,
     };
     onAddSkill(body);
+    toast.success("Skill added successfully!");
   };
 
   const handleClose = () => {
@@ -58,6 +62,7 @@ const AddSkillModal = ({ onClose, onAddSkill }) => {
       role="dialog"
       aria-modal="true"
     >
+      <ToastContainer />
       <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
       <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
         <div className="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
@@ -96,27 +101,25 @@ const AddSkillModal = ({ onClose, onAddSkill }) => {
                   Skill Level
                 </span>
                 <div className="mt-2 space-y-2">
-                  {["Beginner", "Intermediate", "Advanced"].map(
-                    (level, index) => (
-                      <div key={level} className="flex items-center">
-                        <input
-                          type="radio"
-                          id={`level-${level}`}
-                          name="skill-level"
-                          value={level}
-                          checked={selectedLevel === level}
-                          onChange={handleLevelChange}
-                          className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                        />
-                        <label
-                          htmlFor={`level-${level}`}
-                          className="ml-3 block text-sm font-medium text-gray-700"
-                        >
-                          {level}
-                        </label>
-                      </div>
-                    )
-                  )}
+                  {["Beginner", "Intermediate", "Advanced"].map((level) => (
+                    <div key={level} className="flex items-center">
+                      <input
+                        type="radio"
+                        id={`level-${level}`}
+                        name="skill-level"
+                        value={level}
+                        checked={selectedLevel === level}
+                        onChange={handleLevelChange}
+                        className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                      />
+                      <label
+                        htmlFor={`level-${level}`}
+                        className="ml-3 block text-sm font-medium text-gray-700"
+                      >
+                        {level}
+                      </label>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>

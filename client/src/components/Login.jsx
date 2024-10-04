@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Login() {
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
-
-  const navigate = useNavigate();
 
   const onChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -36,17 +37,17 @@ export default function Login() {
         Cookies.set("userid", parseRes.userid);
         Cookies.set("role", parseRes.role);
         Cookies.set("degnid", parseRes.degnid);
-        alert("Successfully Logged in");
+        toast.success("Successfully Logged in");
         setTimeout(() => {
           navigate(parseRes.role === "admin" ? "/dashboard" : "/allCourses");
         }, 1000);
       } else {
-        alert("Invalid password or Invalid Email");
+        toast.error("Invalid password or Invalid Email");
         navigate("/");
       }
     } catch (err) {
       console.error(err.message);
-      alert("Login failed. Please try again.");
+      toast.error("Login failed. Please try again.");
     }
   };
 
@@ -54,6 +55,7 @@ export default function Login() {
 
   return (
     <div className="bg-textbg min-h-screen flex items-center justify-center">
+      <ToastContainer />
       <div className="flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl">
         <div className="p-12">
           <h1 className="text-5xl text-center font-bold">Login</h1>

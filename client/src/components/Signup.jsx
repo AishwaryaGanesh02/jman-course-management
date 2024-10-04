@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function SignUp() {
   const [name, setName] = useState("");
@@ -41,6 +43,7 @@ export default function SignUp() {
     const hasNumber = /[0-9]/.test(password);
     const hasSpecialCharacter = /[!@#$%^&*(),.?":{}|<>]/.test(password);
     const hasMinimumLength = password.length >= 8;
+
     if (password.length === 0) {
       return "Please enter a password";
     }
@@ -68,7 +71,7 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== repassword) {
-      alert("Passwords do not match. Please try again.");
+      toast.error("Passwords do not match. Please try again.");
       return;
     }
     try {
@@ -84,7 +87,7 @@ export default function SignUp() {
         "http://localhost:1200/api/auth/register",
         body
       );
-      alert(response.data.message);
+      toast.success(response.data.message);
 
       if (response.data.message === "Successfully Registered") {
         setTimeout(() => {
@@ -93,9 +96,10 @@ export default function SignUp() {
       }
     } catch (err) {
       console.error(err.message);
-      alert("Registration failed. Please try again.");
+      toast.error("Registration failed. Please try again.");
     }
 
+    // Clear the form fields
     setName("");
     setEmail("");
     setDegn("");
@@ -116,6 +120,7 @@ export default function SignUp() {
       }}
       className="bg-textbg"
     >
+      <ToastContainer />
       <div className="flex items-center justify-center min-h-screen bg-grey-100">
         <div className="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
           <div className="flex flex-col justify-center md:px-14 md:py-8 p-10">

@@ -2,14 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ProtectRoute = ({ element, allowedRoles }) => {
-  const [loading, setLoading] = useState(true);
   const [validCourseIds, setValidCourseIds] = useState([]);
   const [error, setError] = useState(null);
+  const [tokenExpired, setTokenExpired] = useState(false);
 
   const isAuthenticated = !!Cookies.get("token");
-  const userRole = Cookies.get("role"); // Assume user role is stored in cookies
+  const userRole = Cookies.get("role");
 
   useEffect(() => {
     const fetchCourseIds = async () => {
@@ -22,51 +24,55 @@ const ProtectRoute = ({ element, allowedRoles }) => {
             },
           }
         );
-        setValidCourseIds(response.data); // Assume response contains an array of valid course IDs
+        console.log("-------");
+        setValidCourseIds(response.data);
       } catch (err) {
-        setError(err); // Handle error
-      } finally {
-        setLoading(false);
+        if (err.response && err.response.status === 401) {
+          toast.error("Token expired. Please log in again.");
+          setTimeout(() => {
+            setTokenExpired(true);
+          }, 3000);
+        } else {
+          setError(err);
+        }
       }
     };
 
     if (isAuthenticated) {
+      console.log("-------");
       fetchCourseIds();
-    } else {
-      setLoading(false); // Set loading to false if not authenticated
     }
   }, [isAuthenticated]);
 
-  // If loading, you can return a loading spinner or null
-  if (loading) {
-    return <div>Loading...</div>; // Or your loading spinner
-  }
-
-  // If not authenticated, redirect to login
   if (!isAuthenticated) {
     return <Navigate to="/" replace />;
   }
 
-  // // Check role-based access
-  if (allowedRoles && !allowedRoles.includes(userRole)) {
-    return <Navigate to="/not-found" replace />;
+  if (tokenExpired) {
+    return <Navigate to="/" replace />;
   }
 
-  // If there's an error (like 404 from the API), handle it
   if (error) {
     return <Navigate to="/not-found" replace />;
   }
 
-  // Validate course ID if provided
+  if (allowedRoles && !allowedRoles.includes(userRole)) {
+    return <Navigate to="/not-found" replace />;
+  }
+
   if (window.location.pathname.startsWith("/courseInfo/")) {
     const currentCourseId = parseInt(window.location.pathname.split("/").pop());
-    console.log(currentCourseId, validCourseIds); // Get the course ID from the URL
     if (currentCourseId && !validCourseIds.includes(currentCourseId)) {
       return <Navigate to="/not-found" replace />;
     }
   }
 
-  return element;
+  return (
+    <>
+      <ToastContainer />
+      {element}
+    </>
+  );
 };
 
 export default ProtectRoute;

@@ -82,25 +82,50 @@ const CourseModel = {
       include: { skill: true },
     });
 
-    // Count progress statuses using groupBy
-    const progressCounts = await prisma.employeeProgress.groupBy({
-      by: ["progressStatus"],
+    // Fetch progress entries along with user and designation
+    const progressEntries = await prisma.employeeProgress.findMany({
       where: { courseId },
-      _count: {
-        userId: true,
+      include: {
+        user: {
+          include: {
+            designation: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+        },
       },
     });
 
-    // Transform progressCounts to a more usable object
+    // Initialize counts
     const statusCounts = {
       not_started: 0,
       in_progress: 0,
       completed: 0,
     };
 
-    progressCounts.forEach((entry) => {
-      if (entry.progressStatus in statusCounts) {
-        statusCounts[entry.progressStatus] = entry._count.userId;
+    const designationProgressCounts = {};
+
+    // Populate counts
+    progressEntries.forEach(({ user, progressStatus }) => {
+      // Update global status counts
+      if (progressStatus in statusCounts) {
+        statusCounts[progressStatus] += 1;
+      }
+
+      // Update designation progress counts
+      const designationName = user?.designation?.name;
+      if (designationName) {
+        if (!designationProgressCounts[designationName]) {
+          designationProgressCounts[designationName] = {
+            not_started: 0,
+            in_progress: 0,
+            completed: 0,
+          };
+        }
+        designationProgressCounts[designationName][progressStatus] += 1;
       }
     });
 
@@ -108,6 +133,7 @@ const CourseModel = {
       course,
       skills,
       progressCounts: statusCounts,
+      designationProgressCounts,
     };
   },
 

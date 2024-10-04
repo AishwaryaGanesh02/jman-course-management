@@ -133,6 +133,17 @@ const UserModel = {
       },
     });
   },
+
+  editUserInfo: async (userId, name, phoneNumber, gender) => {
+    return await prisma.user.update({
+      where: { id: userId },
+      data: {
+        username: name,
+        phoneNumber,
+        gender,
+      },
+    });
+  },
 };
 
 module.exports = UserModel;

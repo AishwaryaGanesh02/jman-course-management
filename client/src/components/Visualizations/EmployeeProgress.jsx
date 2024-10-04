@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import AddProgressModal from "../AddProgressModel"; // A modal component for updating progress
 import Cookies from "js-cookie";
 import axios from "axios";
@@ -11,15 +11,14 @@ const EmployeeProgress = ({
   progressData,
   course,
   courseId,
+  rerenderflag,
 }) => {
   const token = Cookies.get("token");
   const [showModal, setShowModal] = useState(false);
   const totalModules = course.totalModules;
 
   const handleAddProgress = async (newProgress) => {
-    console.log(newProgress);
     const employeeId = Cookies.get("userid");
-    console.log(course, "----");
     const updatedProgress = {
       ...newProgress,
       employeeId,
@@ -27,7 +26,7 @@ const EmployeeProgress = ({
       action: "updated",
       skills: course.skills,
     };
-    console.log(updatedProgress);
+
     try {
       const response = await axios.post(
         "http://localhost:1200/api/users/add-employee-progress",
@@ -38,28 +37,27 @@ const EmployeeProgress = ({
           },
         }
       );
+      console.log(response.data.message);
       toast.success(response.data.message);
       setShowModal(false);
-      // const timer = setTimeout(() => {
-      //   window.location.reload();
-      // }, 2000);
-      // return () => clearTimeout(timer);
+      rerenderflag(Math.floor(Math.random() * 1000));
     } catch (error) {
       console.error("Error adding skill:", error);
+      toast.error("Error updating progress");
     }
   };
 
   const radialBarOptions = {
-    series: [(completedModules / course.totalModules) * 100],
+    series: [(completedModules / totalModules) * 100],
     options: {
       chart: {
         type: "radialBar",
-        height: 280,
+        height: 350,
       },
       plotOptions: {
         radialBar: {
           hollow: {
-            size: "70%",
+            size: "65%",
           },
           dataLabels: {
             show: true,
@@ -70,9 +68,6 @@ const EmployeeProgress = ({
             },
             value: {
               show: true,
-              formatter: function () {
-                return `${completedModules} / ${totalModules}`;
-              },
               color: "#111",
               fontSize: "30px",
             },
@@ -81,20 +76,25 @@ const EmployeeProgress = ({
       },
       labels: ["Completed Modules"],
       fill: {
-        colors: ["#00E396"],
+        colors: ["#76ABAE"],
+      },
+
+      tooltip: {
+        y: {
+          formatter: function (val) {
+            return `${completedModules}`;
+          },
+        },
       },
     },
   };
 
   return (
-    <div className="flex">
-      <div className="m-3 sm:ml-42 md:ml-60">
-        <ToastContainer />
-        <h1 className="font-extrabold text-2xl text-center">
-          Employee Progress
-        </h1>
-        <div className="meter-gauge mt-5">
-          <h3>Completed Modules</h3>
+    <div className="employee-progress mt-5 m-5">
+      <ToastContainer />
+      <h1 className="text-xl font-bold text-primary-300">Your Progress</h1>
+      <div className="flex items-center ">
+        <div className="meter-gauge basis-1/2">
           <Chart
             options={radialBarOptions.options}
             series={radialBarOptions.series}
@@ -102,69 +102,72 @@ const EmployeeProgress = ({
             height={radialBarOptions.options.chart.height}
           />
         </div>
-        <div className="flex justify-center mb-4">
-          <button
-            onClick={() => setShowModal(true)}
-            className={`w-64 border border-primary-300 rounded-md text-center gap-2 transition duration-300 
-      ${
-        progressData[0].modulesCompleted === totalModules
-          ? "bg-transparent text-gray-400 cursor-not-allowed shadow-sm"
-          : "bg-white hover:text-white hover:bg-primary-200 shadow-md"
-      } px-4 py-2`}
-            disabled={progressData[0].modulesCompleted === totalModules}
-          >
-            Update Progress
-          </button>
-        </div>
+        <div className="basis-1/2">
+          <div className="flex justify-center mb-4">
+            <button
+              onClick={() => setShowModal(true)}
+              className={`w-64 border border-primary-300 rounded-md text-center transition duration-300 
+            ${
+              progressData[0]?.modulesCompleted === totalModules
+                ? "bg-gray-300 text-gray-400 cursor-not-allowed"
+                : "bg-white hover:bg-primary-200 shadow-md"
+            } 
+            px-4 py-2`}
+              disabled={progressData[0]?.modulesCompleted === totalModules}
+            >
+              Update Your Progress
+            </button>
+          </div>
 
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-          <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-              <tr>
-                <th scope="col" className="px-6 py-3">
-                  Date
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Status
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Modules Completed
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {progressData.length > 0 ? (
-                progressData.map((item) => (
-                  <tr
-                    key={item.id}
-                    className="odd:bg-white even:bg-gray-50 border-b"
-                  >
-                    <td className="px-6 py-4">
-                      {new Date(item.lastUpdated).toLocaleString()}
-                    </td>
-                    <td className="px-6 py-4">{item.progressStatus}</td>
-                    <td className="px-6 py-4">{item.modulesCompleted}</td>
-                  </tr>
-                ))
-              ) : (
+          <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table className="min-w-full text-sm text-left text-gray-500">
+              <thead className="text-xs text-gray-700 uppercase bg-primary-300">
                 <tr>
-                  <td colSpan="3" className="px-6 py-4 text-center">
-                    No progress data available
-                  </td>
+                  <th scope="col" className="px-6 py-3">
+                    Date
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Status
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Modules Completed
+                  </th>
                 </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody className="bg-bg">
+                {progressData.length > 0 ? (
+                  progressData.map((item) => (
+                    <tr
+                      key={item.id}
+                      className="odd:bg-white even:bg-gray-50 border-b"
+                    >
+                      <td className="px-6 py-4">
+                        {new Date(item.lastUpdated).toLocaleString()}
+                      </td>
+                      <td className="px-6 py-4">{item.progressStatus}</td>
+                      <td className="px-6 py-4">{item.modulesCompleted}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="3" className="px-6 py-4 text-center">
+                      No progress data available
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
 
-        {showModal && (
-          <AddProgressModal
-            onClose={() => setShowModal(false)}
-            onAddProgress={handleAddProgress}
-            totalModules={totalModules}
-            completedModules={progressData[0].modulesCompleted}
-          />
-        )}
+          {showModal && (
+            <AddProgressModal
+              onClose={() => setShowModal(false)}
+              onAddProgress={handleAddProgress}
+              totalModules={totalModules}
+              completedModules={progressData[0]?.modulesCompleted}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Auth from "./components/Auth";
 import Login from "./components/Login";
 import SignUp from "./components/Signup";
 import ProtectRoute from "./components/ProtectRoutes";
@@ -14,7 +13,7 @@ import Profile from "./components/Profile";
 
 function App() {
   return (
-    <div className="flex flex-col h-screen justify-between">
+    <div className="h-screen">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
@@ -46,7 +45,6 @@ function App() {
             element={<ProtectRoute element={<Profile />} />}
           />
 
-          {/* Not Found Route */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

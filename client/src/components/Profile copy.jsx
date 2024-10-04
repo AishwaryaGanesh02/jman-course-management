@@ -5,11 +5,10 @@ import femaleAvatar from "./assets/Female-Avatar.png";
 import maleAvatar from "./assets/male-avatar.png";
 import avatar from "./assets/avatar.png";
 import Sidebar from "./Sidebar";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 function Profile() {
   const token = Cookies.get("token");
+
   const userId = Cookies.get("userid");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -38,25 +37,19 @@ function Profile() {
     };
 
     fetchUserInfo();
-  }, [token]);
+  }, []);
 
   const handleSave = async () => {
     if (isEditMode) {
       try {
-        await axios.put(
-          `http://localhost:1200/api/users/edit/userInfo`,
-          {
-            name,
-            gender,
-            phoneNumber,
-          },
-          { headers: { authorization: `${token}` } }
-        );
-        toast.success("Profile Updated!");
+        await axios.put(`http://localhost:1200/api/user/edit/${userId}`, {
+          name,
+          gender,
+        });
+        alert("Profile Updated!");
         setIsEditMode(false);
       } catch (error) {
         console.error("Error updating profile:", error);
-        toast.error("Failed to update profile.");
       }
     }
   };
@@ -66,18 +59,17 @@ function Profile() {
   };
 
   return (
-    <div className="flex bg-mainbg">
+    <div className="flex">
       <Sidebar />
-      <div className="xs:ml-40 sm:ml-40 md:ml-56 flex-1">
-        <ToastContainer />
-        <div className="">
+      <div className="ml-3 xs:ml-40 sm:ml-40 md:ml-56 flex-1">
+        <div className="relative">
           <div className="bg-primary-300 px-10 pt-24 pb-6 h-[30vh]">
-            <span className="font-extrabold text-21xl text-center ">
+            <span className="font-extrabold text-21xl text-center">
               Hello, {name}
             </span>
           </div>
 
-          <div className="z-30 relative w-1/2 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex justify-center items-center">
+          <div className="z-50 relative top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex justify-center items-center">
             <div className="w-[200px] h-[200px] relative">
               {gender === "Male" && (
                 <img
@@ -104,13 +96,13 @@ function Profile() {
           </div>
 
           <div className="relative top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <div className="border-solid rounded-lg bg-bg shadow shadow-gray-400 border-gray border-2 mx-[15%]">
+            <div className="border-solid rounded-lg border-gray border-2 mx-[15%]">
               <div className="flex justify-end m-4">
                 <button
                   className="w-24 h-10 bg-white border border-primary-300 rounded-md text-center gap-2 transition duration-300 hover:text-white hover:bg-primary-200 shadow-lg"
                   onClick={() => {
-                    if (isEditMode) handleSave();
                     setIsEditMode(!isEditMode);
+                    handleSave();
                   }}
                 >
                   {isEditMode ? "Save" : "Edit Profile"}
@@ -135,7 +127,7 @@ function Profile() {
                     <label className="w-32">Designation:</label>
                     <input
                       type="text"
-                      className={`text-black ml-4 w-full rounded-lg border-0 bg-gray-200 px-2 ${
+                      className={`text-black ml-4 w-full rounded-lg border-0  bg-gray-200 px-2 ${
                         isEditMode ? "text-gray-500" : ""
                       }`}
                       value={designation}
@@ -146,35 +138,23 @@ function Profile() {
                     <label className="w-32">Email:</label>
                     <input
                       type="text"
-                      className={`text-black ml-4 w-full rounded-lg border-0 bg-gray-200 px-2 ${
+                      className={`text-black ml-4 w-full rounded-lg border-0  bg-gray-200 px-2 ${
                         isEditMode ? "text-gray-500" : ""
                       }`}
                       value={email}
                       disabled
                     />
                   </div>
-                  <div className="mt-5 flex items-center">
-                    <label className="w-32">Phone:</label>
-                    <input
-                      type="text"
-                      className={`text-black ml-4 w-full rounded-lg border-0 bg-gray-200 px-2 ${
-                        isEditMode ? editCSS : ""
-                      }`}
-                      value={phoneNumber}
-                      onChange={(e) => handleInputChange(e, setPhoneNumber)}
-                      disabled={!isEditMode}
-                    />
-                  </div>
                   <div className="mt-5 mb-2 flex items-center">
                     <label className="w-32">Gender:</label>
                     {isEditMode ? (
                       <div
-                        className={`text-black ml-4 w-full rounded-lg border-0 bg-gray-200 px-2 ${
+                        className={`text-black ml-4 w-full rounded-lg border-0  bg-gray-200 px-2 ${
                           isEditMode ? editCSS : ""
                         }`}
                       >
                         <input
-                          type="radio"
+                          type="checkbox"
                           id="male"
                           value="Male"
                           className="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out bg-gray-200"
@@ -187,7 +167,7 @@ function Profile() {
                         </label>
 
                         <input
-                          type="radio"
+                          type="checkbox"
                           id="female"
                           value="Female"
                           checked={gender === "Female"}
@@ -200,7 +180,7 @@ function Profile() {
                         </label>
 
                         <input
-                          type="radio"
+                          type="checkbox"
                           id="others"
                           value="Others"
                           checked={gender === "Others"}

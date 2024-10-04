@@ -1,6 +1,6 @@
 const { ProgressStatus } = require("@prisma/client");
 const CourseModel = require("../models/courseModel");
-const { user } = require("../config/db");
+const { user, designation } = require("../config/db");
 
 // Get list of skills that a course has
 exports.getCourseSkills = async (req, res) => {
@@ -92,12 +92,13 @@ exports.getCourseDetails = async (req, res) => {
         difficulty: courseDetails.course.difficulty,
         language: courseDetails.course.language,
         totalTime: courseDetails.course.totalTime,
+        designationProgressCounts: courseDetails.designationProgressCounts,
         totalModules: courseDetails.course.totalModules,
         skills: skills, //.map((courseSkill) => courseSkill.name),
         progressCounts: courseDetails.progressCounts, // Include progress entries here
       },
     };
-
+    console.log("090==========", response.data.designationProgressCounts);
     res.json(response);
   } catch (error) {
     console.error("Error fetching course details:", error);
@@ -139,7 +140,6 @@ exports.getAllCourses = async (req, res) => {
         ),
       };
     });
-
     res.status(200).json(coursesWithDetails);
   } catch (error) {
     console.error(error);

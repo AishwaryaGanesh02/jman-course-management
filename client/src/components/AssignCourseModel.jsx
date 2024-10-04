@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AssignCourseModal = ({ onClose, onAssignCourse }) => {
   const [employees, setEmployees] = useState([]);
@@ -30,9 +32,6 @@ const AssignCourseModal = ({ onClose, onAssignCourse }) => {
   useEffect(() => {
     const fetchCourses = async () => {
       if (selectedEmployee) {
-        console.log(
-          `http://localhost:1200/api/courses/available/${selectedEmployee}`
-        );
         try {
           const response = await axios.get(
             `http://localhost:1200/api/courses/available/${selectedEmployee}`,
@@ -42,7 +41,6 @@ const AssignCourseModal = ({ onClose, onAssignCourse }) => {
               },
             }
           );
-          console.log(response.data, "---------");
           setCourses(response.data);
         } catch (error) {
           console.error("Error fetching courses:", error);
@@ -55,8 +53,8 @@ const AssignCourseModal = ({ onClose, onAssignCourse }) => {
 
   const handleEmployeeChange = (event) => {
     setSelectedEmployee(event.target.value);
-    setSelectedCourse(""); // Reset course selection
-    setCourseDetails(null); // Reset course details
+    setSelectedCourse("");
+    setCourseDetails(null);
   };
 
   const handleCourseChange = (event) => {
@@ -71,7 +69,7 @@ const AssignCourseModal = ({ onClose, onAssignCourse }) => {
 
   const handleSave = () => {
     if (!selectedEmployee || !selectedCourse) {
-      return alert("Please select an employee and a course.");
+      return toast.error("Please select an employee and a course.");
     }
 
     const body = {
@@ -84,6 +82,7 @@ const AssignCourseModal = ({ onClose, onAssignCourse }) => {
     };
 
     onAssignCourse(body);
+    toast.success("Course assigned successfully!");
   };
 
   const handleClose = () => {
@@ -97,13 +96,13 @@ const AssignCourseModal = ({ onClose, onAssignCourse }) => {
       role="dialog"
       aria-modal="true"
     >
+      <ToastContainer />
       <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
       <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
         <div className="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
           <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
             <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
               <h1 className="text-center font-bold text-5xl">Assign Course</h1>
-
               <div className="mb-4">
                 <label
                   htmlFor="employee-dropdown"
@@ -125,7 +124,6 @@ const AssignCourseModal = ({ onClose, onAssignCourse }) => {
                   ))}
                 </select>
               </div>
-
               <div className="mb-4">
                 <label
                   htmlFor="course-dropdown"
@@ -148,7 +146,6 @@ const AssignCourseModal = ({ onClose, onAssignCourse }) => {
                   ))}
                 </select>
               </div>
-
               {courseDetails && (
                 <div className="mt-4">
                   <h2 className="font-bold text-xl text-center">
@@ -169,7 +166,6 @@ const AssignCourseModal = ({ onClose, onAssignCourse }) => {
                 </div>
               )}
             </div>
-
             <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
               <button
                 type="button"
