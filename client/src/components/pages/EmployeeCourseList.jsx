@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from "./Sidebar";
+import Sidebar from "../common/Sidebar";
 import Cookies from "js-cookie";
 import axios from "axios";
-import AssignCourseModal from "./AssignCourseModel";
-import ProgressFilter from "./ProgressFilter";
+import AssignCourseModal from "../models_filters/AssignCourseModel";
+import ProgressFilter from "../models_filters/ProgressFilter";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -117,12 +117,12 @@ const EmployeeCourseList = () => {
   };
 
   return (
-    <div className="flex bg-mainbg h-screen">
+    <div className="flex bg-mainbg h-full">
       <ToastContainer />
       <Sidebar />
-      <div className="ml-64 w-full h-screen overflow-y-auto flex flex-col">
+      <div className="ml-64 w-full h-full flex flex-col">
         <h1 className="font-extrabold text-19xl py-8">User Course Progress</h1>
-        <div className="mr-5 p-4 bg-bg shadow shadow-gray-400 overflow-x-auto">
+        <div className="mr-5 p-4 bg-bg h-full shadow shadow-gray-400 overflow-x-auto">
           <div className="flex gap-5 flex-grow">
             <ProgressFilter
               designations={designations}

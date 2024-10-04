@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import Sidebar from "./Sidebar"; // Existing sidebar component
-import CourseFilters from "./CourseFilters"; // New combined filter component
+import Sidebar from "../common/Sidebar"; // Existing sidebar component
+import CourseFilters from "../models_filters/CourseFilters"; // New combined filter component
 import { Link } from "react-router-dom"; // Import Link
 
 const AllCourses = () => {
@@ -162,7 +162,7 @@ const AllCourses = () => {
                 return (
                   <div key={status} className="mb-8 p-3">
                     <h2 className={`font-bold text-xl ${color}`}>{label}</h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 ">
                       {orderedCourses[status].map((course) => (
                         <Link to={`/courseInfo/${course.id}`} key={course.id}>
                           <div className="bg-white border rounded-lg p-4 shadow-md rounded-2xl shadow-md shadow-primary-300">

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AddProgressModal from "../AddProgressModel"; // A modal component for updating progress
+import AddProgressModal from "../models_filters/AddProgressModel";
 import Cookies from "js-cookie";
 import axios from "axios";
 import Chart from "react-apexcharts";
@@ -70,6 +70,7 @@ const EmployeeProgress = ({
               show: true,
               color: "#111",
               fontSize: "30px",
+              formatter: (val) => val.toFixed(2) + "%",
             },
           },
         },
@@ -80,6 +81,8 @@ const EmployeeProgress = ({
       },
 
       tooltip: {
+        enabled: true,
+        theme: "dark",
         y: {
           formatter: function (val) {
             return `${completedModules}`;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from "./Sidebar";
-import AddUserSkillModel from "./AddUserSkillModel";
+import Sidebar from "../common/Sidebar";
+import AddUserSkillModel from "../models_filters/AddUserSkillModel";
 import Cookies from "js-cookie";
 import axios from "axios";
 

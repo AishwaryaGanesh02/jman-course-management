@@ -6,19 +6,14 @@ module.exports = {
       xs: "200px",
       xm: "500px",
       sm: "640px",
-      // => @media (min-width: 640px) { ... }
 
       md: "768px",
-      // => @media (min-width: 768px) { ... }
 
       lg: "1024px",
-      // => @media (min-width: 1024px) { ... }
 
       xl: "1280px",
-      // => @media (min-width: 1280px) { ... }
 
       "2xl": "1536px",
-      // => @media (min-width: 1536px) { ... }
     },
     extend: {
       colors: {
@@ -30,7 +25,7 @@ module.exports = {
         mainbg: "#EEEEEE", // Light shade for text/background
         black: "#000",
         bg: "#f1f1f1",
-        textbg: "#e3e3e3",
+        textbg: "c",
       },
       spacing: {},
       fontFamily: {

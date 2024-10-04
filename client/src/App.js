@@ -1,15 +1,17 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./components/Login";
-import SignUp from "./components/Signup";
-import ProtectRoute from "./components/ProtectRoutes";
-import SkillSet from "./components/SkillSet";
-import EmployeeCourseList from "./components/EmployeeCourseList";
-import CourseDetail from "./components/CourseDetail";
-import AllCourses from "./components/AllCourses";
-import Dashboard from "./components/Dashboard";
-import NotFound from "./components/NotFound"; // Create this component
-import Profile from "./components/Profile";
+
+import ProtectRoute from "./components/authentication/ProtectRoutes";
+import Login from "./components/authentication/Login";
+import SignUp from "./components/authentication/Signup";
+
+import SkillSet from "./components/pages/SkillSet";
+import EmployeeCourseList from "./components/pages/EmployeeCourseList";
+import CourseDetail from "./components/pages/CourseDetail";
+import AllCourses from "./components/pages/AllCourses";
+import Dashboard from "./components/pages/Dashboard";
+import NotFound from "./components/common/NotFound"; // Create this component
+import Profile from "./components/pages/Profile";
 
 function App() {
   return (
