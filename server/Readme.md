@@ -1,8 +1,8 @@
-# Project Name
+# Course Navigator
 
 ## Overview
 
-This project is an API server built using Express.js. It provides endpoints for user authentication, skill management, course management, and more.
+This project is an API server built using Express.js. It provides user authentication, skill management, course management, and more endpoints.
 
 ## Technologies Used
 
