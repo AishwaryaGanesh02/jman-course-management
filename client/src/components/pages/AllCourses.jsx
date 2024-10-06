@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import Sidebar from "../common/Sidebar"; // Existing sidebar component
-import CourseFilters from "../models_filters/CourseFilters"; // New combined filter component
-import { Link } from "react-router-dom"; // Import Link
+import Sidebar from "../common/Sidebar";
+import CourseFilters from "../models_filters/CourseFilters";
+import { Link } from "react-router-dom";
 
 const AllCourses = () => {
   const [courses, setCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
-  const [selectedDifficulties, setSelectedDifficulties] = useState([]); // State for selected difficulties
-  const [selectedLanguages, setSelectedLanguages] = useState([]); // State for selected languages
+  const [selectedDifficulties, setSelectedDifficulties] = useState([]);
+  const [selectedLanguages, setSelectedLanguages] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [skills, setSkills] = useState([]);
-  const [difficultyLevels] = useState(["Beginner", "Intermediate", "Advanced"]); // Difficulty levels can be hardcoded or fetched from an API
+  const [difficultyLevels] = useState(["Beginner", "Intermediate", "Advanced"]);
 
   const token = Cookies.get("token");
   const role = Cookies.get("role");
@@ -36,7 +36,9 @@ const AllCourses = () => {
 
     const fetchSkills = async () => {
       try {
-        const response = await axios.get("http://localhost:1200/api/skills");
+        const response = await axios.get(
+          "http://localhost:1200/api/skills-and-designations/skills"
+        );
         setSkills(response.data);
       } catch (error) {
         console.error("Error fetching skills:", error);
@@ -109,7 +111,7 @@ const AllCourses = () => {
     not_started: groupedCourses.not_started || [],
     completed: groupedCourses.completed || [],
   };
-  console.log(orderedCourses);
+
   return (
     <div className="flex bg-mainbg h-screen">
       <Sidebar />
@@ -155,9 +157,9 @@ const AllCourses = () => {
                   label: status,
                   color: "text-gray-500",
                 };
-                // Check if there are any courses for the current status
+
                 if (orderedCourses[status].length === 0) {
-                  return null; // Skip rendering if there are no courses
+                  return null;
                 }
                 return (
                   <div key={status} className="mb-8 p-3">

@@ -7,9 +7,9 @@ const bodyparser = require("body-parser");
 const port = 1200;
 const dotenv = require("dotenv");
 const authRoutes = require("./routes/authRoutes");
-const designationRoutes = require("./routes/designationRoutes");
 const userRoutes = require("./routes/userRoutes");
 const courseRoutes = require("./routes/courseRoutes");
+const skillAndDesignationRoutes = require("./routes/skillAndDesignationRoute");
 
 dotenv.config();
 
@@ -19,8 +19,7 @@ app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: false }));
 
 app.use("/api/auth", authRoutes);
-app.use("/api/skills", designationRoutes);
-app.use("/api/user-skills", designationRoutes);
+app.use("/api/skills-and-designations", skillAndDesignationRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/courses", courseRoutes);
 app.use(errorHandler);

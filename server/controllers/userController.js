@@ -18,14 +18,13 @@ exports.getUserSkills = async (req, res) => {
 exports.getOtherSkills = async (req, res) => {
   try {
     const otherSkills = await UserModel.getOtherSkills(req.userId);
-
     res.status(200).json(otherSkills);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch user skills" });
   }
 };
 
-// Get list of users
+// Get list of all users with their designations
 exports.getAllUsers = async (req, res) => {
   try {
     const users = await UserModel.getAllUsers();
@@ -35,35 +34,25 @@ exports.getAllUsers = async (req, res) => {
       email: user.email,
       designation: user.designation ? user.designation.name : null,
     }));
-
     res.status(200).json(usersWithDesignations);
   } catch (error) {
-    console.error(error);
     res.status(500).json({ error: "Failed to fetch users" });
   }
 };
 
+// Add a skill to a user
 exports.addUserSkill = async (req, res) => {
   const { skillId, level } = req.body;
   const userId = req.userId;
-
-  // console.log("0890", userId,
-  //   skillId,
-  //   level)
   try {
-    const newUserSkill = await UserModel.createUserSkill(
-      userId,
-      skillId,
-      level
-    );
-    console.log("0890");
+    const newUserSkill = await UserModel.createUserSkill(userId, skillId, level);
     res.status(201).json({ message: "Skill added successfully", newUserSkill });
   } catch (error) {
     res.status(500).json({ error: "Failed to add skill" });
   }
 };
 
-// Create employee progress
+// Create progress entry for an employee
 exports.createEmployeeProgress = async (req, res) => {
   const {
     employeeId,
@@ -76,7 +65,6 @@ exports.createEmployeeProgress = async (req, res) => {
   } = req.body;
 
   try {
-    // Create the progress entry
     const progressEntry = await UserModel.createEmployeeProgress(
       employeeId,
       courseId,
@@ -85,41 +73,37 @@ exports.createEmployeeProgress = async (req, res) => {
       certificateProof
     );
 
-    // Only create user skills if progressStatus is 'completed'
+    // Create user skills if progress is completed
     if (progressStatus === "completed" && skills && Array.isArray(skills)) {
       const skillPromises = skills.map((skill) =>
         UserModel.createUserSkill(employeeId, skill.skillId, skill.level)
       );
-
       await Promise.all(skillPromises);
     }
 
-    res
-      .status(201)
-      .json({ message: `Course ${action} successfully`, progressEntry });
+    res.status(201).json({ message: `Course ${action} successfully`, progressEntry });
   } catch (error) {
-    console.error("Error creating employee progress:", error);
     res.status(500).json({ error: "Failed to create employee progress" });
   }
 };
 
+// Get progress of a user for a specific course
 exports.getUserProgress = async (req, res) => {
   const courseId = parseInt(req.params.courseId, 10);
   const userId = req.userId;
 
   try {
     const userProgress = await UserModel.getUserProgress(userId, courseId);
-
-    res.status(201).json(userProgress);
+    res.status(200).json(userProgress);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
   }
 };
 
+// Get detailed user information
 exports.getUserInfo = async (req, res) => {
   try {
     const userSkills = await UserModel.findUserById(req.userId);
-    console.log(userSkills);
     const response = {
       data: {
         name: userSkills.username,
@@ -129,23 +113,21 @@ exports.getUserInfo = async (req, res) => {
         designation: userSkills.designation.name,
       },
     };
-
     res.status(200).json(response);
   } catch (error) {
-    res.status(500).json({ error: "Failed to fetch user skills" });
+    res.status(500).json({ error: "Failed to fetch user info" });
   }
 };
 
+// Update user information
 exports.editUserInfo = async (req, res) => {
   const { name, phoneNumber, gender } = req.body;
   const userId = req.userId;
 
   try {
-    const a = await UserModel.editUserInfo(userId, name, phoneNumber, gender);
-    console.log(a);
+    await UserModel.editUserInfo(userId, name, phoneNumber, gender);
     res.status(200).json({ message: "User info updated successfully." });
   } catch (error) {
-    console.error("Failed to update user info:", error);
     res.status(500).json({ error: "Failed to update user info." });
   }
 };

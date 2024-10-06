@@ -24,14 +24,13 @@ module.exports = {
         },
         mainbg: "#EEEEEE", // Light shade for text/background
         black: "#000",
-        bg: "#f1f1f1",
+        bg: "#f8f8f8",
         textbg: "c",
       },
       spacing: {},
       fontFamily: {
         "open-sans": "'Open Sans'",
         inter: "Inter",
-        "mystery-quest": "'Mystery Quest'",
       },
       borderRadius: {
         "3xs": "10px",

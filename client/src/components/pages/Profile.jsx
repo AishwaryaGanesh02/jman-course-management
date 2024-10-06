@@ -10,7 +10,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 function Profile() {
   const token = Cookies.get("token");
-  const userId = Cookies.get("userid");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");

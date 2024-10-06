@@ -1,6 +1,7 @@
 const prisma = require("../config/db");
 
 const UserModel = {
+
   createUser: async (data) => {
     return await prisma.user.create({ data });
   },
@@ -61,7 +62,6 @@ const UserModel = {
   },
 
   createUserSkill: async (employeeId, skillId, level) => {
-    console.log("--");
     const userId = Number(employeeId);
     const skillIdNum = Number(skillId);
     const levelOrder = {
@@ -69,22 +69,16 @@ const UserModel = {
       Intermediate: 2,
       Advanced: 3,
     };
-    console.log(userId, skillIdNum, level);
-    // Check if the user skill already exists
+
     const existingUserSkill = await prisma.userSkill.findFirst({
       where: {
         AND: [{ userId: userId }, { skillId: skillIdNum }],
       },
     });
-    console.log(existingUserSkill, "--------");
-    // } catch (error) {
-    //   console.error("Error fetching user skill:", error);
-    // }
-    // If it exists, compare levels
+
     if (existingUserSkill) {
       const existingLevel = existingUserSkill.level;
 
-      // Compare the levels
       if (levelOrder[level] > levelOrder[existingLevel]) {
         return await prisma.userSkill.update({
           where: {

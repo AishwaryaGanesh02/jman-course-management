@@ -20,7 +20,17 @@ const AssignCourseModal = ({ onClose, onAssignCourse }) => {
             authorization: `${token}`,
           },
         });
-        setEmployees(response.data);
+        setEmployees(
+          response.data.filter(
+            (employee) => employee.id !== parseInt(Cookies.get("userid"))
+          )
+        );
+        console.log(
+          response.data.filter(
+            (employee) => employee.id != Cookies.get("userid")
+          ),
+          Cookies.get("userid")
+        );
       } catch (error) {
         console.error("Error fetching employees:", error);
       }

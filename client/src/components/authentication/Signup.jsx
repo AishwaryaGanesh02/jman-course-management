@@ -21,7 +21,7 @@ export default function SignUp() {
     const fetchDesignations = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:1200/api/designations"
+          "http://localhost:1200/api/skills-and-designations/designations"
         );
         setDesignations(response.data);
       } catch (error) {
@@ -99,7 +99,6 @@ export default function SignUp() {
       toast.error("Registration failed. Please try again.");
     }
 
-    // Clear the form fields
     setName("");
     setEmail("");
     setDegn("");

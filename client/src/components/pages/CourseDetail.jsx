@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import EnrollmentStatusChart from "../visualizations/EnrollmentStatusChart.jsx";
 import EmployeeProgress from "../visualizations/EmployeeProgress.jsx";
 import DesignationProgressChart from "../visualizations/DesignationProgressChart.jsx";
-import { ClipLoader } from "react-spinners"; // Importing ClipLoader
+import { ClipLoader } from "react-spinners";
 
 const CourseInformation = () => {
   const { courseId } = useParams();

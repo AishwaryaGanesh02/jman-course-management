@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const AddProgressModal = ({
@@ -29,7 +29,7 @@ const AddProgressModal = ({
         "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
         "(\\#[-a-z\\d_]*)?$",
       "i"
-    ); // fragment locator
+    );
     return !!urlPattern.test(string);
   };
 

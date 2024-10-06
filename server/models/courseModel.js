@@ -8,13 +8,6 @@ const CourseModel = {
     });
   },
 
-  getCourseDesignations: async (courseId) => {
-    return await prisma.designationSkill.findMany({
-      where: { courseId },
-      include: { designation: true },
-    });
-  },
-
   getAvailableCourses: async (userId) => {
     const enrolledCourses = await prisma.employeeProgress.findMany({
       where: { userId },
@@ -37,14 +30,13 @@ const CourseModel = {
         user: {
           select: {
             id: true,
-            username: true, // Include other user details as needed
-            designation: true, // Include the designation field
+            username: true,
+            designation: true,
           },
         },
       },
     });
 
-    // Create a map to store the latest entry for each user-course combination
     const latestEntries = {};
     allProgressEntries.forEach((entry) => {
       const key = `${entry.userId}-${entry.courseId}`;
@@ -56,7 +48,6 @@ const CourseModel = {
       }
     });
 
-    // Map the results to include user designation
     return Object.values(latestEntries).map((entry) => ({
       ...entry,
       user: {
@@ -64,25 +55,22 @@ const CourseModel = {
         username: entry.user.username,
         designation: entry.user.designation.name,
       },
-      course: entry.course, // You can include other course details as needed
+      course: entry.course,
     }));
   },
 
   getCourseDetailsWithProgress: async (courseId) => {
     courseId = Number(courseId);
 
-    // Fetch course details
     const course = await prisma.course.findUnique({
       where: { id: courseId },
     });
 
-    // Fetch skills associated with the course
     const skills = await prisma.courseSkill.findMany({
       where: { courseId },
       include: { skill: true },
     });
 
-    // Fetch progress entries along with user and designation
     const progressEntries = await prisma.employeeProgress.findMany({
       where: { courseId },
       include: {
@@ -99,7 +87,6 @@ const CourseModel = {
       },
     });
 
-    // Initialize counts
     const statusCounts = {
       not_started: 0,
       in_progress: 0,
@@ -108,14 +95,11 @@ const CourseModel = {
 
     const designationProgressCounts = {};
 
-    // Populate counts
     progressEntries.forEach(({ user, progressStatus }) => {
-      // Update global status counts
       if (progressStatus in statusCounts) {
         statusCounts[progressStatus] += 1;
       }
 
-      // Update designation progress counts
       const designationName = user?.designation?.name;
       if (designationName) {
         if (!designationProgressCounts[designationName]) {
@@ -150,7 +134,7 @@ const CourseModel = {
         include: {
           courseSkills: {
             include: {
-              skill: true, // This fetches the Skill details for each CourseSkill
+              skill: true,
             },
           },
           EmployeeProgress: {
@@ -184,24 +168,25 @@ const CourseModel = {
           },
         },
         select: {
-          id: true, // Only select the course ID
+          id: true,
         },
       });
 
-      return courses.map((course) => course.id); // Return an array of course IDs
+      return courses.map((course) => course.id);
     } catch (error) {
       throw new Error("Error fetching course IDs: " + error.message);
     }
   },
+
   getAllCourseIds: async () => {
     try {
       const courses = await prisma.course.findMany({
         select: {
-          id: true, // Only select the course ID
+          id: true,
         },
       });
 
-      return courses.map((course) => course.id); // Return an array of all course IDs
+      return courses.map((course) => course.id);
     } catch (error) {
       throw new Error("Error fetching all course IDs: " + error.message);
     }

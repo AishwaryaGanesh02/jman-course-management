@@ -1,7 +1,6 @@
 const express = require("express");
 const {
   getCourseSkills,
-  getCourseDesignations,
   getAvailableCourses,
   getUserCoursesWithProgress,
   getCourseDetails,
@@ -12,12 +11,11 @@ const authenticateToken = require("../middlewares/authMiddleware");
 
 const router = express.Router();
 
-router.get("/:courseId/skills", getCourseSkills);
-router.get("/:courseId/designations", getCourseDesignations);
-router.get("/available/:id", authenticateToken, getAvailableCourses);
-router.get("/user/progress", authenticateToken, getUserCoursesWithProgress);
-router.get("/:courseId/details", authenticateToken, getCourseDetails);
-router.get("/", authenticateToken, getAllCourses);
-router.get("/valid-ids", authenticateToken, getCourseId);
+router.get("/:courseId/skills", getCourseSkills); //courseDetail.jsx
+router.get("/available/:id", authenticateToken, getAvailableCourses); //assigncoursemodel.jsx
+router.get("/user/progress", authenticateToken, getUserCoursesWithProgress); //employeeCourseList.jsx
+router.get("/:courseId/details", authenticateToken, getCourseDetails); //courseDetail.jsx
+router.get("/", authenticateToken, getAllCourses);  //Allcoursse.jsx
+router.get("/valid-ids", authenticateToken, getCourseId); //protectRoutes.jsx
 
 module.exports = router;

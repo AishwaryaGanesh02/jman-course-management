@@ -1,8 +1,6 @@
-const { ProgressStatus } = require("@prisma/client");
 const CourseModel = require("../models/courseModel");
-const { user, designation } = require("../config/db");
 
-// Get list of skills that a course has
+// Get list of skills associated with a course
 exports.getCourseSkills = async (req, res) => {
   const { courseId } = req.params;
   try {
@@ -13,23 +11,10 @@ exports.getCourseSkills = async (req, res) => {
   }
 };
 
-// Get list of designations a course has
-exports.getCourseDesignations = async (req, res) => {
-  const { courseId } = req.params;
-  try {
-    const designations = await CourseModel.getCourseDesignations(
-      parseInt(courseId)
-    );
-    res.status(200).json({ designations });
-  } catch (error) {
-    res.status(500).json({ error: "Failed to fetch designations" });
-  }
-};
 
-// Get list of courses that a user doesn't already have
+// Get list of courses not already taken by a user
 exports.getAvailableCourses = async (req, res) => {
   const userId = parseInt(req.params.id, 10);
-
   if (isNaN(userId)) {
     return res.status(400).json({ error: "Invalid user ID" });
   }
@@ -41,17 +26,12 @@ exports.getAvailableCourses = async (req, res) => {
   }
 };
 
-// Get list of courses joined with user and progress tables
+// Get list of user courses with progress details
 exports.getUserCoursesWithProgress = async (req, res) => {
   try {
-    // Fetching the user courses with progress from the database
     const userCourses = await CourseModel.getUserCoursesWithProgress();
-    console.log(userCourses);
-    // Transforming the data to include the required fields
     const transformedCourses = userCourses.map((course) => {
-      const progressPercentage =
-        (course.modulesCompleted / course.course.totalModules) * 100;
-
+      const progressPercentage = (course.modulesCompleted / course.course.totalModules) * 100;
       return {
         courseName: course.course.title,
         username: course.user.username,
@@ -62,23 +42,17 @@ exports.getUserCoursesWithProgress = async (req, res) => {
         userDesignation: course.user.designation,
       };
     });
-
     res.status(200).json(transformedCourses);
   } catch (error) {
-    console.error("Error fetching user courses with progress:", error);
-    res
-      .status(500)
-      .json({ error: "Failed to fetch user courses with progress" });
+    res.status(500).json({ error: "Failed to fetch user courses with progress" });
   }
 };
 
+// Get detailed information about a specific course
 exports.getCourseDetails = async (req, res) => {
   const { courseId } = req.params;
-
   try {
-    const courseDetails = await CourseModel.getCourseDetailsWithProgress(
-      courseId
-    );
+    const courseDetails = await CourseModel.getCourseDetailsWithProgress(courseId);
     const skills = courseDetails.skills.map((cs) => ({
       skillName: cs.skill.name,
       level: cs.level,
@@ -94,37 +68,30 @@ exports.getCourseDetails = async (req, res) => {
         totalTime: courseDetails.course.totalTime,
         designationProgressCounts: courseDetails.designationProgressCounts,
         totalModules: courseDetails.course.totalModules,
-        skills: skills, //.map((courseSkill) => courseSkill.name),
-        progressCounts: courseDetails.progressCounts, // Include progress entries here
+        skills: skills,
+        progressCounts: courseDetails.progressCounts,
       },
     };
-    console.log("090==========", response.data.designationProgressCounts);
     res.json(response);
   } catch (error) {
-    console.error("Error fetching course details:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
-// Get list of courses
+// Get list of all courses
 exports.getAllCourses = async (req, res) => {
   const role = req.role;
   const userId = req.userId;
   try {
     const courses = await CourseModel.getAllCourses(role, userId);
-
     const coursesWithDetails = courses.map((course) => {
       let progressStatus = null;
-
-      // Only calculate progress if the role is employee
       if (role === "employee") {
         const latestProgress = course.EmployeeProgress.sort(
           (a, b) => new Date(b.lastUpdated) - new Date(a.lastUpdated)
         )[0];
-
         progressStatus = latestProgress ? latestProgress.progressStatus : null;
       }
-
       return {
         id: course.id,
         title: course.title,
@@ -135,36 +102,28 @@ exports.getAllCourses = async (req, res) => {
         totalTime: course.totalTime,
         totalModules: course.totalModules,
         progressStatus: progressStatus,
-        skills: course.courseSkills.map(
-          (courseSkill) => courseSkill.skill.name
-        ),
+        skills: course.courseSkills.map((courseSkill) => courseSkill.skill.name),
       };
     });
     res.status(200).json(coursesWithDetails);
   } catch (error) {
-    console.error(error);
     res.status(500).json({ error: "Failed to fetch courses" });
   }
 };
 
+// Get course IDs for a user or all courses based on role
 exports.getCourseId = async (req, res) => {
   const userId = req.userId;
   const userRole = req.role;
-
   try {
     let courseIds;
-
     if (userRole == "employee") {
-      courseIds = await CourseModel.getCourseIdsByUserId(userId); // Get course IDs for the specific user
+      courseIds = await CourseModel.getCourseIdsByUserId(userId);
     } else {
-      courseIds = await CourseModel.getAllCourseIds(); // Get all course IDs
+      courseIds = await CourseModel.getAllCourseIds();
     }
-
-    return res.json(courseIds); // Return the array of course IDs
+    return res.json(courseIds);
   } catch (error) {
-    console.error(error);
-    return res
-      .status(500)
-      .json({ error: "An error occurred while fetching course IDs." });
+    return res.status(500).json({ error: "An error occurred while fetching course IDs." });
   }
 };
