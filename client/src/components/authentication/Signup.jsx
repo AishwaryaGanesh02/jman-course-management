@@ -72,7 +72,7 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!email.endsWith("@shcrew.com")) {
+    if (!email.endsWith("@mgcrew.com")) {
       toast.error("Please use your official email.");
       return;
     }

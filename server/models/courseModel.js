@@ -35,6 +35,13 @@ const CourseModel = {
           },
         },
       },
+      where: {
+        user: {
+          NOT: {
+            designation: null,
+          },
+        },
+      },
     });
 
     const latestEntries = {};
@@ -53,7 +60,7 @@ const CourseModel = {
       user: {
         id: entry.user.id,
         username: entry.user.username,
-        designation: entry.user.designation.name,
+        designation: entry.user.designation?.name,
       },
       course: entry.course,
     }));

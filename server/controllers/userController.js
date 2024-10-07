@@ -76,7 +76,7 @@ exports.createEmployeeProgress = async (req, res) => {
       modulesCompleted,
       certificateProof
     );
-
+    console.log("-------", progressEntry);
     // Create user skills if progress is completed
     if (progressStatus === "completed" && skills && Array.isArray(skills)) {
       const skillPromises = skills.map((skill) =>
@@ -84,7 +84,7 @@ exports.createEmployeeProgress = async (req, res) => {
       );
       await Promise.all(skillPromises);
     }
-
+    console.log(progressEntry);
     res
       .status(201)
       .json({ message: `Course ${action} successfully`, progressEntry });

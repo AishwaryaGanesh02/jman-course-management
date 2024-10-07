@@ -11,7 +11,6 @@ exports.getCourseSkills = async (req, res) => {
   }
 };
 
-
 // Get list of courses not already taken by a user
 exports.getAvailableCourses = async (req, res) => {
   const userId = parseInt(req.params.id, 10);
@@ -31,7 +30,8 @@ exports.getUserCoursesWithProgress = async (req, res) => {
   try {
     const userCourses = await CourseModel.getUserCoursesWithProgress();
     const transformedCourses = userCourses.map((course) => {
-      const progressPercentage = (course.modulesCompleted / course.course.totalModules) * 100;
+      const progressPercentage =
+        (course.modulesCompleted / course.course.totalModules) * 100;
       return {
         courseName: course.course.title,
         username: course.user.username,
@@ -44,7 +44,9 @@ exports.getUserCoursesWithProgress = async (req, res) => {
     });
     res.status(200).json(transformedCourses);
   } catch (error) {
-    res.status(500).json({ error: "Failed to fetch user courses with progress" });
+    res
+      .status(500)
+      .json({ error: "Failed to fetch user courses with progress" });
   }
 };
 
@@ -52,7 +54,9 @@ exports.getUserCoursesWithProgress = async (req, res) => {
 exports.getCourseDetails = async (req, res) => {
   const { courseId } = req.params;
   try {
-    const courseDetails = await CourseModel.getCourseDetailsWithProgress(courseId);
+    const courseDetails = await CourseModel.getCourseDetailsWithProgress(
+      courseId
+    );
     const skills = courseDetails.skills.map((cs) => ({
       skillName: cs.skill.name,
       level: cs.level,
@@ -102,7 +106,9 @@ exports.getAllCourses = async (req, res) => {
         totalTime: course.totalTime,
         totalModules: course.totalModules,
         progressStatus: progressStatus,
-        skills: course.courseSkills.map((courseSkill) => courseSkill.skill.name),
+        skills: course.courseSkills.map(
+          (courseSkill) => courseSkill.skill.name
+        ),
       };
     });
     res.status(200).json(coursesWithDetails);
@@ -124,6 +130,8 @@ exports.getCourseId = async (req, res) => {
     }
     return res.json(courseIds);
   } catch (error) {
-    return res.status(500).json({ error: "An error occurred while fetching course IDs." });
+    return res
+      .status(500)
+      .json({ error: "An error occurred while fetching course IDs." });
   }
 };
