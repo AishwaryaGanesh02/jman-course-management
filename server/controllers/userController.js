@@ -45,7 +45,11 @@ exports.addUserSkill = async (req, res) => {
   const { skillId, level } = req.body;
   const userId = req.userId;
   try {
-    const newUserSkill = await UserModel.createUserSkill(userId, skillId, level);
+    const newUserSkill = await UserModel.createUserSkill(
+      userId,
+      skillId,
+      level
+    );
     res.status(201).json({ message: "Skill added successfully", newUserSkill });
   } catch (error) {
     res.status(500).json({ error: "Failed to add skill" });
@@ -81,7 +85,9 @@ exports.createEmployeeProgress = async (req, res) => {
       await Promise.all(skillPromises);
     }
 
-    res.status(201).json({ message: `Course ${action} successfully`, progressEntry });
+    res
+      .status(201)
+      .json({ message: `Course ${action} successfully`, progressEntry });
   } catch (error) {
     res.status(500).json({ error: "Failed to create employee progress" });
   }

@@ -145,7 +145,15 @@ const EmployeeProgress = ({
                       <td className="px-6 py-4">
                         {new Date(item.lastUpdated).toLocaleString()}
                       </td>
-                      <td className="px-6 py-4">{item.progressStatus}</td>
+                      <td className="px-6 py-4">
+                        {item.progressStatus === "not_started"
+                          ? "Not Started"
+                          : item.progressStatus === "in_progress"
+                          ? "In Progress"
+                          : item.progressStatus === "completed"
+                          ? "Completed"
+                          : item.progressStatus}
+                      </td>
                       <td className="px-6 py-4">{item.modulesCompleted}</td>
                     </tr>
                   ))

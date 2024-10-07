@@ -24,7 +24,7 @@ module.exports = {
         },
         mainbg: "#EEEEEE", // Light shade for text/background
         black: "#000",
-        bg: "#f8f8f8",
+        bg: "#f2f2f2",
         textbg: "c",
       },
       spacing: {},

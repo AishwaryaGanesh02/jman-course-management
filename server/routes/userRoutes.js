@@ -1,56 +1,76 @@
 const express = require("express");
-const {
-  getCourseSkills,
-  getAvailableCourses,
-  getUserCoursesWithProgress,
-  getCourseDetails,
-  getAllCourses,
-  getCourseId,
-} = require("../controllers/courseController");
 const authenticateToken = require("../middlewares/authMiddleware");
+const {
+  getUserSkills,
+  getAllUsers,
+  getOtherSkills,
+  addUserSkill,
+  createEmployeeProgress,
+  getUserProgress,
+  getUserInfo,
+  editUserInfo,
+} = require("../controllers/userController");
 
 const router = express.Router();
 
 /**
- * GET /:courseId/skills
- * Retrieves the skills associated with a specific course.
- * Used in: CourseDetail.jsx
+ * GET /skills
+ * Retrieves the skills associated with the authenticated user.
+ * Used in: SkillSet.jsx
  */
-router.get("/:courseId/skills", getCourseSkills);
+router.get("/skills", authenticateToken, getUserSkills);
 
 /**
- * GET /available/:id
- * Retrieves available courses for the user.
- * Used in: AssignCourseModel.jsx
+ * GET /other-skills
+ * Retrieves additional skills available for the authenticated user.
+ * Used in: AddUserSkillModel.jsx
  */
-router.get("/available/:id", authenticateToken, getAvailableCourses);
+router.get("/other-skills", authenticateToken, getOtherSkills);
 
 /**
- * GET /user/progress
- * Retrieves the courses that the user is enrolled in, along with their progress.
- * Used in: EmployeeCourseList.jsx
+ * POST /add-skills
+ * Adds skills to the authenticated user's profile.
+ * Used in: SkillSet.jsx
  */
-router.get("/user/progress", authenticateToken, getUserCoursesWithProgress);
-
-/**
- * GET /:courseId/details
- * Retrieves detailed information about a specific course.
- * Used in: CourseDetail.jsx
- */
-router.get("/:courseId/details", authenticateToken, getCourseDetails);
+router.post("/add-skills", authenticateToken, addUserSkill);
 
 /**
  * GET /
- * Retrieves a list of all available courses.
- * Used in: AllCourses.jsx
+ * Retrieves a list of all users.
+ * Used in: AssignCourseModel.jsx
  */
-router.get("/", authenticateToken, getAllCourses);
+router.get("/", authenticateToken, getAllUsers);
 
 /**
- * GET /valid-ids
- * Retrieves valid course IDs for the user.
- * Used in: ProtectRoutes.jsx
+ * GET /userInfo
+ * Retrieves the information of the authenticated user.
+ * Used in: Profile.jsx
  */
-router.get("/valid-ids", authenticateToken, getCourseId);
+router.get("/userInfo", authenticateToken, getUserInfo);
+
+/**
+ * PUT /edit/userInfo
+ * Edits the information of the authenticated user.
+ * Used in: Profile.jsx
+ */
+router.put("/edit/userInfo", authenticateToken, editUserInfo);
+
+/**
+ * POST /add-employee-progress
+ * Creates progress records for the authenticated user's courses.
+ * Used in: EmployeeCourseList.jsx
+ */
+router.post(
+  "/add-employee-progress",
+  authenticateToken,
+  createEmployeeProgress
+);
+
+/**
+ * GET /employee-progress/:courseId
+ * Retrieves progress for a specific course for the authenticated user.
+ * Used in: CourseDetail.jsx
+ */
+router.get("/employee-progress/:courseId", authenticateToken, getUserProgress);
 
 module.exports = router;
