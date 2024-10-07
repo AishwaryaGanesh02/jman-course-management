@@ -32,7 +32,7 @@ function Profile() {
         setDesignation(user.designation);
         setPhoneNumber(user.phoneNumber);
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        toast.error("Error fetching user data. Please try again later.");
       }
     };
 
@@ -54,7 +54,6 @@ function Profile() {
         toast.success("Profile Updated!");
         setIsEditMode(false);
       } catch (error) {
-        console.error("Error updating profile:", error);
         toast.error("Failed to update profile.");
       }
     }

@@ -96,7 +96,6 @@ async function main() {
       username: "lara",
       email: "lara@g.co",
       role: "admin",
-      designationId: 3,
       gender: "Female",
       phoneNumber: "9874563210",
       passwordHash: bcryptPassword,

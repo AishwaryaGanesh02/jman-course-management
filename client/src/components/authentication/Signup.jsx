@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import bg_logo from "../assets/bg_logo.jpg";
 
 export default function SignUp() {
   const [name, setName] = useState("");
@@ -25,7 +26,7 @@ export default function SignUp() {
         );
         setDesignations(response.data);
       } catch (error) {
-        console.error("Error fetching designations:", error);
+        toast.error("Error fetching designations. Please try again later.");
       }
     };
 
@@ -70,6 +71,12 @@ export default function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!email.endsWith("@shcrew.com")) {
+      toast.error("Please use your official email.");
+      return;
+    }
+
     if (password !== repassword) {
       toast.error("Passwords do not match. Please try again.");
       return;
@@ -95,7 +102,6 @@ export default function SignUp() {
         }, 500);
       }
     } catch (err) {
-      console.error(err.message);
       toast.error("Registration failed. Please try again.");
     }
 
@@ -111,13 +117,13 @@ export default function SignUp() {
   return (
     <div
       style={{
-        backgroundPosition: "center",
         minHeight: "100vh",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        backgroundImage: `url(${bg_logo})`,
       }}
-      className="bg-textbg"
+      className="bg-textbg min-h-screen flex items-center justify-center bg-no-repeat"
     >
       <ToastContainer />
       <div className="flex items-center justify-center min-h-screen bg-grey-100">

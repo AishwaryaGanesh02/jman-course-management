@@ -2,7 +2,6 @@ import React from "react";
 import Chart from "react-apexcharts";
 
 const EnrollmentStatusChart = ({ course }) => {
-  console.log(course);
   const donutChartOptions = {
     series: [
       course?.progressCounts?.completed || 0,

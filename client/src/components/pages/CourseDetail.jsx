@@ -7,6 +7,7 @@ import EnrollmentStatusChart from "../visualizations/EnrollmentStatusChart.jsx";
 import EmployeeProgress from "../visualizations/EmployeeProgress.jsx";
 import DesignationProgressChart from "../visualizations/DesignationProgressChart.jsx";
 import { ClipLoader } from "react-spinners";
+import { ToastContainer, toast } from "react-toastify";
 
 const CourseInformation = () => {
   const { courseId } = useParams();
@@ -26,7 +27,7 @@ const CourseInformation = () => {
         );
         setCourse(response.data.data);
       } catch (error) {
-        console.error("Error fetching course details:", error);
+        toast.error("Error fetching course details. Please try again later.");
       } finally {
         setLoading(false);
       }
@@ -47,7 +48,7 @@ const CourseInformation = () => {
         setProgressData(sortedProgress);
         setCompletedModules(progressData[0]?.modulesCompleted);
       } catch (error) {
-        console.error("Error fetching user progress:", error);
+        toast.error("Error fetching user progress. Please try again later.");
       }
     };
     fetchUserProgress();
@@ -74,6 +75,7 @@ const CourseInformation = () => {
 
   return (
     <div className="flex bg-mainbg xs:w-fit sm:w-full overflow-x-auto h-full">
+      <ToastContainer />
       <Sidebar />
       <div className="m-3 ml-64 w-full">
         <div>

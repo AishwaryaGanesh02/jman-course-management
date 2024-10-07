@@ -23,7 +23,7 @@ const AddSkillModal = ({ onClose, onAddSkill }) => {
         );
         setAllSkills(response.data);
       } catch (error) {
-        console.error("Error fetching skills:", error);
+        toast.error("Error fetching skills. Please try again later.");
       }
     };
 

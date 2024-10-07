@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import Sidebar from "../common/Sidebar";
 import CourseFilters from "../models_filters/CourseFilters";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 const AllCourses = () => {
   const [courses, setCourses] = useState([]);
@@ -26,11 +27,10 @@ const AllCourses = () => {
             authorization: `${token}`,
           },
         });
-        console.log(response.data);
         setCourses(response.data);
         setFilteredCourses(response.data);
       } catch (error) {
-        console.error("Error fetching courses:", error);
+        toast.error("Error fetching courses. Please try again later.");
       }
     };
 
@@ -41,7 +41,7 @@ const AllCourses = () => {
         );
         setSkills(response.data);
       } catch (error) {
-        console.error("Error fetching skills:", error);
+        toast.error("Error fetching skills. Please try again later.");
       }
     };
 
@@ -114,6 +114,7 @@ const AllCourses = () => {
 
   return (
     <div className="flex bg-mainbg h-screen">
+      <ToastContainer />
       <Sidebar />
       <div className="ml-64 w-full h-screen overflow-y-auto flex flex-col">
         <h1 className="font-extrabold text-19xl py-8">

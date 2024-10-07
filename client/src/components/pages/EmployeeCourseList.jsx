@@ -45,10 +45,8 @@ const EmployeeCourseList = () => {
       toast.success(response.data.message);
       setIsModalOpen(false);
     } catch (error) {
-      console.error("Error adding skill:", error);
       toast.error("Error assigning course.");
     }
-    console.log("Course assigned:", courseData);
   };
 
   useEffect(() => {
@@ -70,7 +68,7 @@ const EmployeeCourseList = () => {
         setDesignations(uniqueDesignations);
         setUsernames(uniqueUsernames);
       } catch (error) {
-        console.error("Error fetching courses:", error);
+        toast.error("Error fetching courses. Please try again later.");
       }
     };
 

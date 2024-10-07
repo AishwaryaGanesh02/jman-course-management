@@ -25,14 +25,8 @@ const AssignCourseModal = ({ onClose, onAssignCourse }) => {
             (employee) => employee.id !== parseInt(Cookies.get("userid"))
           )
         );
-        console.log(
-          response.data.filter(
-            (employee) => employee.id != Cookies.get("userid")
-          ),
-          Cookies.get("userid")
-        );
       } catch (error) {
-        console.error("Error fetching employees:", error);
+        toast.error("Error fetching employees. Please try again later.");
       }
     };
 
@@ -53,7 +47,7 @@ const AssignCourseModal = ({ onClose, onAssignCourse }) => {
           );
           setCourses(response.data);
         } catch (error) {
-          console.error("Error fetching courses:", error);
+          toast.error("Error fetching courses. Please try again later.");
         }
       }
     };

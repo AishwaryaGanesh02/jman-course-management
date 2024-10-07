@@ -37,12 +37,10 @@ const EmployeeProgress = ({
           },
         }
       );
-      console.log(response.data.message);
       toast.success(response.data.message);
       setShowModal(false);
       rerenderflag(Math.floor(Math.random() * 1000));
     } catch (error) {
-      console.error("Error adding skill:", error);
       toast.error("Error updating progress");
     }
   };

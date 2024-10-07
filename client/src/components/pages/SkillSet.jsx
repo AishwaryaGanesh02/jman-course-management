@@ -3,6 +3,7 @@ import Sidebar from "../common/Sidebar";
 import AddUserSkillModel from "../models_filters/AddUserSkillModel";
 import Cookies from "js-cookie";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 
 const SkillSet = () => {
   const token = Cookies.get("token");
@@ -22,7 +23,7 @@ const SkillSet = () => {
         );
         setUserSkillsData(response.data);
       } catch (error) {
-        console.error("Error fetching user skills:", error);
+        toast.error("Error fetching user skills. Please try again later.");
       }
     };
 
@@ -39,12 +40,13 @@ const SkillSet = () => {
       setUserSkillsData((prev) => [...prev, newSkill]);
       setShowModal(false);
     } catch (error) {
-      console.error("Error adding skill:", error);
+      toast.error("Error adding skills. Please try again later.");
     }
   };
 
   return (
     <div className="flex bg-mainbg h-screen">
+      <ToastContainer />
       <Sidebar />
       <div className="ml-64 w-full h-screen overflow-y-auto flex flex-col">
         <h1 className="font-extrabold text-19xl py-8">Manage your skill set</h1>

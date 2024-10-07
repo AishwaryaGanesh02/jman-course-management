@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import bg_logo from "../assets/bg_logo.jpg";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -46,7 +47,6 @@ export default function Login() {
         navigate("/");
       }
     } catch (err) {
-      console.error(err.message);
       toast.error("Login failed. Please try again.");
     }
   };
@@ -54,7 +54,10 @@ export default function Login() {
   const { email, password } = user;
 
   return (
-    <div className="bg-textbg min-h-screen flex items-center justify-center">
+    <div
+      className="bg-textbg min-h-screen flex items-center justify-center bg-no-repeat"
+      style={{ backgroundImage: `url(${bg_logo})` }}
+    >
       <ToastContainer />
       <div className="flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl">
         <div className="p-12">
