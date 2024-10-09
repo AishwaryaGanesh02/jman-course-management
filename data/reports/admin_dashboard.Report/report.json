@@ -1,0 +1,183 @@
+{
+  "config": "{\"version\":\"5.57\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY24SU08\",\"version\":\"5.58\",\"type\":2},\"customTheme\":{\"name\":\"Custom8852146591950809.json\",\"version\":\"5.58\",\"type\":1}},\"activeSectionIndex\":0,\"defaultDrillFilterOtherVisuals\":true,\"linguisticSchemaSyncVersion\":0,\"settings\":{\"useNewFilterPaneExperience\":true,\"allowChangeFilterTypes\":true,\"useStylableVisualContainerHeader\":true,\"queryLimitOption\":6,\"exportDataMode\":1,\"useDefaultAggregateDisplayName\":true,\"useEnhancedTooltips\":true},\"objects\":{\"section\":[{\"properties\":{\"verticalAlignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Top'\"}}}}}]}}",
+  "layoutOptimization": 0,
+  "resourcePackages": [
+    {
+      "resourcePackage": {
+        "disabled": false,
+        "items": [
+          {
+            "name": "Custom8852146591950809.json",
+            "path": "Custom8852146591950809.json",
+            "type": 201
+          }
+        ],
+        "name": "RegisteredResources",
+        "type": 1
+      }
+    },
+    {
+      "resourcePackage": {
+        "disabled": false,
+        "items": [
+          {
+            "name": "CY24SU08",
+            "path": "BaseThemes/CY24SU08.json",
+            "type": 202
+          }
+        ],
+        "name": "SharedResources",
+        "type": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "config": "{\"objects\":{\"background\":[{\"properties\":{\"color\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":0,\"Percent\":0}}}}}}}],\"outspace\":[{\"properties\":{\"color\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#eeeeee'\"}}}}}}}]}}",
+      "displayName": "Page 1",
+      "displayOption": 3,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "12b3f421f9a935addbc9",
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"0c70b4f14dcc253747c8\",\"layouts\":[{\"id\":0,\"position\":{\"x\":10,\"y\":12,\"z\":8000,\"width\":257,\"height\":698,\"tabOrder\":2005}}],\"singleVisual\":{\"visualType\":\"shape\",\"drillFilterOtherVisuals\":true,\"objects\":{\"shape\":[{\"properties\":{\"tileShape\":{\"expr\":{\"Literal\":{\"Value\":\"'rectangle'\"}}},\"roundEdge\":{\"expr\":{\"Literal\":{\"Value\":\"13L\"}}}}}],\"rotation\":[{\"properties\":{\"shapeAngle\":{\"expr\":{\"Literal\":{\"Value\":\"0L\"}}}}}],\"fill\":[{\"properties\":{\"fillColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":0,\"Percent\":0}}}}}},\"selector\":{\"id\":\"default\"}}],\"shadow\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}},{\"properties\":{\"transparency\":{\"expr\":{\"Literal\":{\"Value\":\"76D\"}}}},\"selector\":{\"id\":\"default\"}}],\"outline\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}},\"howCreated\":\"InsertVisualButton\"}",
+          "filters": "[]",
+          "height": 698.00,
+          "width": 257.00,
+          "x": 10.00,
+          "y": 12.00,
+          "z": 8000.00
+        },
+        {
+          "config": "{\"name\":\"1efa87d7612eb8541a89\",\"layouts\":[{\"id\":0,\"position\":{\"x\":31,\"y\":591,\"z\":15000,\"width\":216,\"height\":75,\"tabOrder\":2013}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Calendar.Date\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"c\",\"Entity\":\"Calendar\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Date\"},\"Name\":\"Calendar.Date\",\"NativeReferenceName\":\"Date\"}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Date\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Between'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 75.00,
+          "width": 216.00,
+          "x": 31.00,
+          "y": 591.00,
+          "z": 15000.00
+        },
+        {
+          "config": "{\"name\":\"3002beec89d0f2c0ffdc\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1047,\"y\":37,\"z\":6000,\"width\":191,\"height\":167,\"tabOrder\":2003}}],\"singleVisual\":{\"visualType\":\"gauge\",\"projections\":{\"Y\":[{\"queryRef\":\"Sum(course_enrollment_fact.count_of_completed_and_has_certificate)\"}],\"MaxValue\":[{\"queryRef\":\"Sum(course_enrollment_fact.count_of_enrolled)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"c\",\"Entity\":\"course_enrollment_fact\",\"Type\":0}],\"Select\":[{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"count_of_completed_and_has_certificate\"}},\"Function\":0},\"Name\":\"Sum(course_enrollment_fact.count_of_completed_and_has_certificate)\",\"NativeReferenceName\":\"Sum of count_of_completed_and_has_certificate\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"count_of_enrolled\"}},\"Function\":0},\"Name\":\"Sum(course_enrollment_fact.count_of_enrolled)\",\"NativeReferenceName\":\"Sum of count_of_enrolled\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"count_of_completed_and_has_certificate\"}},\"Function\":0}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Enrollment vs. Completion'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 167.00,
+          "width": 191.00,
+          "x": 1047.00,
+          "y": 37.00,
+          "z": 6000.00
+        },
+        {
+          "config": "{\"name\":\"534a382a880a93629b37\",\"layouts\":[{\"id\":0,\"position\":{\"x\":845,\"y\":455,\"z\":1000,\"width\":386,\"height\":229,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"clusteredColumnChart\",\"projections\":{\"Category\":[{\"queryRef\":\"designation_dimension.designation_name\",\"active\":true}],\"Y\":[{\"queryRef\":\"CountNonNull(Latest_Progress_Records.userId)\"}],\"Series\":[{\"queryRef\":\"employee_progress_fact.progressStatus\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"designation_dimension\",\"Type\":0},{\"Name\":\"l\",\"Entity\":\"Latest_Progress_Records\",\"Type\":0},{\"Name\":\"e\",\"Entity\":\"employee_progress_fact\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"designation_name\"},\"Name\":\"designation_dimension.designation_name\",\"NativeReferenceName\":\"designation_name\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"l\"}},\"Property\":\"userId\"}},\"Function\":2},\"Name\":\"CountNonNull(Latest_Progress_Records.userId)\",\"NativeReferenceName\":\"Count of userId1\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"e\"}},\"Property\":\"progressStatus\"},\"Name\":\"employee_progress_fact.progressStatus\",\"NativeReferenceName\":\"progressStatus\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"l\"}},\"Property\":\"userId\"}},\"Function\":2}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Employee Progress by Designation'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 229.00,
+          "width": 386.00,
+          "x": 845.00,
+          "y": 455.00,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"84412e7f0cb5f5baa135\",\"layouts\":[{\"id\":0,\"position\":{\"x\":31,\"y\":187,\"z\":11000,\"width\":216,\"height\":66,\"tabOrder\":2008}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"user_dimension.user_name\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"u\",\"Entity\":\"user_dimension\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"u\"}},\"Property\":\"user_name\"},\"Name\":\"user_dimension.user_name\",\"NativeReferenceName\":\"Employee Name\"}]},\"columnProperties\":{\"designation_dimension.designation_name\":{\"displayName\":\"Designation Name\"},\"user_dimension.user_name\":{\"displayName\":\"Employee Name\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"selection\":[{\"properties\":{\"singleSelect\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"selectAllCheckboxEnabled\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
+          "filters": "[{\"name\":\"7d59a3e4351e7ffcf2ff\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"user_dimension\"}},\"Property\":\"user_name\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"u\",\"Entity\":\"user_dimension\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"u\"}},\"Property\":\"user_name\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"null\"}}]]}}}}}]},\"type\":\"Categorical\",\"howCreated\":0,\"objects\":{\"general\":[{\"properties\":{\"isInvertedSelectionMode\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]},\"isHiddenInViewMode\":false}]",
+          "height": 66.00,
+          "width": 216.00,
+          "x": 31.00,
+          "y": 187.00,
+          "z": 11000.00
+        },
+        {
+          "config": "{\"name\":\"84746b03868ea457db69\",\"layouts\":[{\"id\":0,\"position\":{\"x\":31,\"y\":266,\"z\":13000,\"width\":216,\"height\":66,\"tabOrder\":2010}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"course_dimension.language\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"c\",\"Entity\":\"course_dimension\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"language\"},\"Name\":\"course_dimension.language\",\"NativeReferenceName\":\"Language\"}]},\"columnProperties\":{\"designation_dimension.designation_name\":{\"displayName\":\"Designation Name\"},\"course_dimension.language\":{\"displayName\":\"Language\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"selection\":[{\"properties\":{\"singleSelect\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"selectAllCheckboxEnabled\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
+          "filters": "[{\"name\":\"2c5c307c9444801d75bf\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"course_dimension\"}},\"Property\":\"language\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"c\",\"Entity\":\"course_dimension\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"language\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"null\"}}]]}}}}}]},\"type\":\"Categorical\",\"howCreated\":0,\"objects\":{\"general\":[{\"properties\":{\"isInvertedSelectionMode\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]},\"isHiddenInViewMode\":false}]",
+          "height": 66.00,
+          "width": 216.00,
+          "x": 31.00,
+          "y": 266.00,
+          "z": 13000.00
+        },
+        {
+          "config": "{\"name\":\"90412b630a3a2d784ab2\",\"layouts\":[{\"id\":0,\"position\":{\"x\":267,\"y\":16,\"z\":0,\"width\":1000,\"height\":698,\"tabOrder\":2014}}],\"singleVisual\":{\"visualType\":\"shape\",\"drillFilterOtherVisuals\":true,\"objects\":{\"shape\":[{\"properties\":{\"tileShape\":{\"expr\":{\"Literal\":{\"Value\":\"'rectangle'\"}}},\"roundEdge\":{\"expr\":{\"Literal\":{\"Value\":\"10L\"}}}}}],\"rotation\":[{\"properties\":{\"shapeAngle\":{\"expr\":{\"Literal\":{\"Value\":\"0L\"}}}}}],\"fill\":[{\"properties\":{\"fillColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":0,\"Percent\":0}}}}}},\"selector\":{\"id\":\"default\"}}],\"shadow\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}},{\"properties\":{\"transparency\":{\"expr\":{\"Literal\":{\"Value\":\"76D\"}}}},\"selector\":{\"id\":\"default\"}}],\"outline\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}},\"howCreated\":\"InsertVisualButton\"}",
+          "filters": "[]",
+          "height": 698.00,
+          "width": 1000.00,
+          "x": 267.00,
+          "y": 16.00,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"ad374abf3118e2b09b49\",\"layouts\":[{\"id\":0,\"position\":{\"x\":295,\"y\":470,\"z\":5000,\"width\":540,\"height\":214,\"tabOrder\":2002}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"user_dimension.user_name\"},{\"queryRef\":\"designation_dimension.designation_name\"},{\"queryRef\":\"course_dimension.title\"},{\"queryRef\":\"employee_progress_fact.last_updated\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"u\",\"Entity\":\"user_dimension\",\"Type\":0},{\"Name\":\"c\",\"Entity\":\"course_dimension\",\"Type\":0},{\"Name\":\"d\",\"Entity\":\"designation_dimension\",\"Type\":0},{\"Name\":\"l\",\"Entity\":\"Latest_Progress_Records\",\"Type\":0},{\"Name\":\"e\",\"Entity\":\"employee_progress_fact\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"u\"}},\"Property\":\"user_name\"},\"Name\":\"user_dimension.user_name\",\"NativeReferenceName\":\"user_name\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"title\"},\"Name\":\"course_dimension.title\",\"NativeReferenceName\":\"title\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"designation_name\"},\"Name\":\"designation_dimension.designation_name\",\"NativeReferenceName\":\"designation_name\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"e\"}},\"Property\":\"last_updated\"},\"Name\":\"employee_progress_fact.last_updated\",\"NativeReferenceName\":\"last_updated\"}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"l\"}},\"Property\":\"last_updated\"}}}]},\"drillFilterOtherVisuals\":true,\"filterSortOrder\":3,\"objects\":{\"columnWidth\":[{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"159D\"}}}},\"selector\":{\"metadata\":\"course_dimension.title\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"101D\"}}}},\"selector\":{\"metadata\":\"user_dimension.user_name\"}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Employees Lagging behind'\"}}}}}],\"stylePreset\":[{\"properties\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'BoldHeader'\"}}}}}]}}}",
+          "filters": "[{\"name\":\"84bd2daeee885ded4458\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Latest_Progress_Records\"}},\"Property\":\"last_updated\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"l\",\"Entity\":\"Latest_Progress_Records\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"l\"}},\"Property\":\"last_updated\"}},\"Right\":{\"Literal\":{\"Value\":\"null\"}}}}}}}]},\"type\":\"Advanced\",\"howCreated\":1,\"objects\":{\"general\":[{\"properties\":{\"isInvertedSelectionMode\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]},\"isHiddenInViewMode\":false,\"ordinal\":0},{\"name\":\"b0831a4310df215ac7ab\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Latest_Progress_Records\"}},\"Property\":\"last_updated\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"subquery\",\"Expression\":{\"Subquery\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"l\",\"Entity\":\"Latest_Progress_Records\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"l\"}},\"Property\":\"last_updated\"},\"Name\":\"field\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"l\"}},\"Property\":\"last_updated\"}},\"Function\":3}}}],\"Top\":10}}},\"Type\":2},{\"Name\":\"l\",\"Entity\":\"Latest_Progress_Records\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"l\"}},\"Property\":\"last_updated\"}}],\"Table\":{\"SourceRef\":{\"Source\":\"subquery\"}}}}}]},\"type\":\"TopN\",\"howCreated\":1,\"ordinal\":1},{\"name\":\"348c08a2489c061e1668\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Latest_Progress_Records\"}},\"Property\":\"Is_Behind\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"l\",\"Entity\":\"Latest_Progress_Records\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"l\"}},\"Property\":\"Is_Behind\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"1L\"}}]]}}}]},\"type\":\"Categorical\",\"howCreated\":1,\"objects\":{},\"ordinal\":2},{\"name\":\"3e07078fa332e58ddcab\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"course_dimension\"}},\"Property\":\"title\"}},\"type\":\"Categorical\",\"howCreated\":0,\"isHiddenInViewMode\":false,\"ordinal\":3},{\"name\":\"925b59491e8a2501257f\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"user_dimension\"}},\"Property\":\"user_name\"}},\"type\":\"Categorical\",\"howCreated\":0,\"isHiddenInViewMode\":false,\"ordinal\":4},{\"name\":\"fc7dd9a68e54420fff59\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"employee_progress_fact\"}},\"Property\":\"progressStatus\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"e\",\"Entity\":\"employee_progress_fact\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"e\"}},\"Property\":\"progressStatus\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'in_progress'\"}}],[{\"Literal\":{\"Value\":\"'not_started'\"}}]]}}}]},\"type\":\"Categorical\",\"howCreated\":1,\"objects\":{\"general\":[{\"properties\":{}}]},\"ordinal\":5},{\"name\":\"31b864133d183044d5e6\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"designation_dimension\"}},\"Property\":\"designation_name\"}},\"type\":\"Categorical\",\"howCreated\":0,\"isHiddenInViewMode\":false,\"ordinal\":6}]",
+          "height": 214.00,
+          "width": 540.00,
+          "x": 295.00,
+          "y": 470.00,
+          "z": 5000.00
+        },
+        {
+          "config": "{\"name\":\"c3cd52a415846364619f\",\"layouts\":[{\"id\":0,\"position\":{\"x\":827,\"y\":220,\"z\":7000,\"width\":422,\"height\":223,\"tabOrder\":2004}}],\"singleVisual\":{\"visualType\":\"columnChart\",\"projections\":{\"Category\":[{\"queryRef\":\"course_dimension.title\",\"active\":true}],\"Y\":[{\"queryRef\":\"Sum(course_enrollment_fact.count_of_enrolled)\"},{\"queryRef\":\"Sum(course_enrollment_fact.count_of_completed_and_has_certificate)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"c1\",\"Entity\":\"course_enrollment_fact\",\"Type\":0},{\"Name\":\"c\",\"Entity\":\"course_dimension\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"title\"},\"Name\":\"course_dimension.title\",\"NativeReferenceName\":\"title\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c1\"}},\"Property\":\"count_of_enrolled\"}},\"Function\":0},\"Name\":\"Sum(course_enrollment_fact.count_of_enrolled)\",\"NativeReferenceName\":\"count_of_enrolled\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c1\"}},\"Property\":\"count_of_completed_and_has_certificate\"}},\"Function\":0},\"Name\":\"Sum(course_enrollment_fact.count_of_completed_and_has_certificate)\",\"NativeReferenceName\":\"Sum of count_of_completed_and_has_certificate\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c1\"}},\"Property\":\"count_of_enrolled\"}},\"Function\":0}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Top 7 Courses by Enrollment'\"}}}}}]}}}",
+          "filters": "[{\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"course_dimension\"}},\"Property\":\"title\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"subquery\",\"Expression\":{\"Subquery\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"c\",\"Entity\":\"course_dimension\",\"Type\":0},{\"Name\":\"c1\",\"Entity\":\"course_enrollment_fact\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"title\"},\"Name\":\"field\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c1\"}},\"Property\":\"count_of_enrolled\"}},\"Function\":0}}}],\"Top\":7}}},\"Type\":2},{\"Name\":\"c\",\"Entity\":\"course_dimension\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"title\"}}],\"Table\":{\"SourceRef\":{\"Source\":\"subquery\"}}}}}]},\"type\":\"TopN\",\"howCreated\":0,\"isHiddenInViewMode\":false}]",
+          "height": 223.00,
+          "width": 422.00,
+          "x": 827.00,
+          "y": 220.00,
+          "z": 7000.00
+        },
+        {
+          "config": "{\"name\":\"c60f171d86cb9481d49e\",\"layouts\":[{\"id\":0,\"position\":{\"x\":31,\"y\":462,\"z\":14000,\"width\":216,\"height\":121,\"tabOrder\":2012}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"employee_progress_fact.progressStatus\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"e\",\"Entity\":\"employee_progress_fact\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"e\"}},\"Property\":\"progressStatus\"},\"Name\":\"employee_progress_fact.progressStatus\",\"NativeReferenceName\":\"Progress Status\"}]},\"columnProperties\":{\"designation_dimension.designation_name\":{\"displayName\":\"Designation Name\"},\"course_dimension.difficulty\":{\"displayName\":\"Difficulty\"},\"employee_progress_fact.progressStatus\":{\"displayName\":\"Progress Status\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Basic'\"}}}}}],\"selection\":[{\"properties\":{\"singleSelect\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"selectAllCheckboxEnabled\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"general\":[{\"properties\":{\"orientation\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}}}}]}}}",
+          "filters": "[{\"name\":\"41be8a0413d2dd4fd3ee\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"course_dimension\"}},\"Property\":\"difficulty\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"c\",\"Entity\":\"course_dimension\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"difficulty\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"null\"}}]]}}}}}]},\"type\":\"Categorical\",\"howCreated\":1,\"objects\":{\"general\":[{\"properties\":{\"isInvertedSelectionMode\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]},\"isHiddenInViewMode\":false}]",
+          "height": 121.00,
+          "width": 216.00,
+          "x": 31.00,
+          "y": 462.00,
+          "z": 14000.00
+        },
+        {
+          "config": "{\"name\":\"d24b4ff23c95bd39f894\",\"layouts\":[{\"id\":0,\"position\":{\"x\":751,\"y\":41,\"z\":2000,\"width\":286,\"height\":159,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"donutChart\",\"projections\":{\"Y\":[{\"queryRef\":\"Sum(course_enrollment_fact.count_of_completed_and_has_certificate)\"}],\"Category\":[{\"queryRef\":\"course_dimension.difficulty\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"c\",\"Entity\":\"course_enrollment_fact\",\"Type\":0},{\"Name\":\"c1\",\"Entity\":\"course_dimension\",\"Type\":0}],\"Select\":[{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"count_of_completed_and_has_certificate\"}},\"Function\":0},\"Name\":\"Sum(course_enrollment_fact.count_of_completed_and_has_certificate)\",\"NativeReferenceName\":\"Sum of count_of_completed_and_has_certificate\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c1\"}},\"Property\":\"difficulty\"},\"Name\":\"course_dimension.difficulty\",\"NativeReferenceName\":\"difficulty\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"count_of_completed_and_has_certificate\"}},\"Function\":0}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"objects\":{\"labels\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"legend\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Courses Completion Rate by Difficulty'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 159.00,
+          "width": 286.00,
+          "x": 751.00,
+          "y": 41.00,
+          "z": 2000.00
+        },
+        {
+          "config": "{\"name\":\"d60cc1a7398c6107c0f2\",\"layouts\":[{\"id\":0,\"position\":{\"x\":295,\"y\":41,\"z\":3000,\"width\":457,\"height\":146,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"lineChart\",\"projections\":{\"Y\":[{\"queryRef\":\"Sum(employee_progress_fact.modulesCompleted)\"}],\"Category\":[{\"queryRef\":\"employee_progress_fact.last_updated.Variation.Date Hierarchy.Year\",\"active\":true},{\"queryRef\":\"employee_progress_fact.last_updated.Variation.Date Hierarchy.Month\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"e\",\"Entity\":\"employee_progress_fact\",\"Type\":0}],\"Select\":[{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"e\"}},\"Property\":\"modulesCompleted\"}},\"Function\":1},\"Name\":\"Sum(employee_progress_fact.modulesCompleted)\",\"NativeReferenceName\":\"Average of modulesCompleted\"},{\"HierarchyLevel\":{\"Expression\":{\"Hierarchy\":{\"Expression\":{\"PropertyVariationSource\":{\"Expression\":{\"SourceRef\":{\"Source\":\"e\"}},\"Name\":\"Variation\",\"Property\":\"last_updated\"}},\"Hierarchy\":\"Date Hierarchy\"}},\"Level\":\"Year\"},\"Name\":\"employee_progress_fact.last_updated.Variation.Date Hierarchy.Year\",\"NativeReferenceName\":\"last_updated Year\"},{\"HierarchyLevel\":{\"Expression\":{\"Hierarchy\":{\"Expression\":{\"PropertyVariationSource\":{\"Expression\":{\"SourceRef\":{\"Source\":\"e\"}},\"Name\":\"Variation\",\"Property\":\"last_updated\"}},\"Hierarchy\":\"Date Hierarchy\"}},\"Level\":\"Month\"},\"Name\":\"employee_progress_fact.last_updated.Variation.Date Hierarchy.Month\",\"NativeReferenceName\":\"last_updated Month\"}]},\"drillFilterOtherVisuals\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Average Modules Completed Over Time'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 146.00,
+          "width": 457.00,
+          "x": 295.00,
+          "y": 41.00,
+          "z": 3000.00
+        },
+        {
+          "config": "{\"name\":\"da54831daa60211352c5\",\"layouts\":[{\"id\":0,\"position\":{\"x\":31,\"y\":114,\"z\":10000,\"width\":216,\"height\":66,\"tabOrder\":2007}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"course_dimension.title\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"c\",\"Entity\":\"course_dimension\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"title\"},\"Name\":\"course_dimension.title\",\"NativeReferenceName\":\"Course Name\"}]},\"columnProperties\":{\"course_dimension.title\":{\"displayName\":\"Course Name\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"selection\":[{\"properties\":{\"singleSelect\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"selectAllCheckboxEnabled\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
+          "filters": "[{\"name\":\"213cb97fb1d60c1472e1\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"course_dimension\"}},\"Property\":\"title\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"c\",\"Entity\":\"course_dimension\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"title\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"null\"}}]]}}}}}]},\"type\":\"Categorical\",\"howCreated\":0,\"objects\":{\"general\":[{\"properties\":{\"isInvertedSelectionMode\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]},\"isHiddenInViewMode\":false}]",
+          "height": 66.00,
+          "width": 216.00,
+          "x": 31.00,
+          "y": 114.00,
+          "z": 10000.00
+        },
+        {
+          "config": "{\"name\":\"df53b481e847f868ce2f\",\"layouts\":[{\"id\":0,\"position\":{\"x\":31,\"y\":341,\"z\":12000,\"width\":216,\"height\":121,\"tabOrder\":2009}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"course_dimension.difficulty\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"c\",\"Entity\":\"course_dimension\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"difficulty\"},\"Name\":\"course_dimension.difficulty\",\"NativeReferenceName\":\"Difficulty\"}]},\"columnProperties\":{\"designation_dimension.designation_name\":{\"displayName\":\"Designation Name\"},\"course_dimension.difficulty\":{\"displayName\":\"Difficulty\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Basic'\"}}}}}],\"selection\":[{\"properties\":{\"singleSelect\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"selectAllCheckboxEnabled\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"general\":[{\"properties\":{\"orientation\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}}}}]}}}",
+          "filters": "[{\"name\":\"41be8a0413d2dd4fd3ee\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"course_dimension\"}},\"Property\":\"difficulty\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"c\",\"Entity\":\"course_dimension\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"difficulty\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"null\"}}]]}}}}}]},\"type\":\"Categorical\",\"howCreated\":0,\"objects\":{\"general\":[{\"properties\":{\"isInvertedSelectionMode\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]},\"isHiddenInViewMode\":false}]",
+          "height": 121.00,
+          "width": 216.00,
+          "x": 31.00,
+          "y": 341.00,
+          "z": 12000.00
+        },
+        {
+          "config": "{\"name\":\"f99c747b8f89639e7468\",\"layouts\":[{\"id\":0,\"position\":{\"x\":31,\"y\":41,\"z\":9000,\"width\":216,\"height\":66,\"tabOrder\":2006}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"designation_dimension.designation_name\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"designation_dimension\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"designation_name\"},\"Name\":\"designation_dimension.designation_name\",\"NativeReferenceName\":\"Designation Name\"}]},\"columnProperties\":{\"designation_dimension.designation_name\":{\"displayName\":\"Designation Name\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"selection\":[{\"properties\":{\"singleSelect\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"selectAllCheckboxEnabled\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
+          "filters": "[{\"name\":\"7092324201cdfb7045b8\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"designation_dimension\"}},\"Property\":\"designation_name\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"designation_dimension\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"designation_name\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"null\"}}]]}}}}}]},\"type\":\"Categorical\",\"howCreated\":0,\"objects\":{\"general\":[{\"properties\":{\"isInvertedSelectionMode\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]},\"isHiddenInViewMode\":false}]",
+          "height": 66.00,
+          "width": 216.00,
+          "x": 31.00,
+          "y": 41.00,
+          "z": 9000.00
+        }
+      ],
+      "width": 1280.00
+    }
+  ],
+  "theme": "Custom8852146591950809.json"
+}

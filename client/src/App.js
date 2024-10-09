@@ -38,16 +38,20 @@ function App() {
           />
           <Route
             path="/dashboard"
+            element={<Dashboard />}
+          />
+          {/* <Route
+            path="/dashboard"
             element={
               <ProtectRoute element={<Dashboard />} allowedRoles={["admin"]} />
             }
-          />
+          /> */}
           <Route
             path="/profile"
             element={<ProtectRoute element={<Profile />} />}
           />
 
-          <Route path="*" element={<NotFound />} />
+          {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>
       </BrowserRouter>
     </div>
