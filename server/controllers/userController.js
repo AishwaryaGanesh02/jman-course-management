@@ -116,7 +116,7 @@ exports.getUserInfo = async (req, res) => {
         email: userSkills.email,
         gender: userSkills.gender,
         phoneNumber: userSkills.phoneNumber,
-        designation: userSkills.designation.name,
+        designation: userSkills.designation?.name,
       },
     };
     res.status(200).json(response);

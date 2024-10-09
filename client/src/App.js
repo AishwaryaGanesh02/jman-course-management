@@ -10,7 +10,7 @@ import EmployeeCourseList from "./components/pages/EmployeeCourseList";
 import CourseDetail from "./components/pages/CourseDetail";
 import AllCourses from "./components/pages/AllCourses";
 import Dashboard from "./components/pages/Dashboard";
-import NotFound from "./components/common/NotFound"; // Create this component
+import NotFound from "./components/common/NotFound";
 import Profile from "./components/pages/Profile";
 
 function App() {
@@ -36,22 +36,18 @@ function App() {
             path="/allCourses"
             element={<ProtectRoute element={<AllCourses />} />}
           />
+
           <Route
-            path="/dashboard"
-            element={<Dashboard />}
-          />
-          {/* <Route
             path="/dashboard"
             element={
               <ProtectRoute element={<Dashboard />} allowedRoles={["admin"]} />
             }
-          /> */}
+          />
           <Route
             path="/profile"
             element={<ProtectRoute element={<Profile />} />}
           />
-
-          {/* <Route path="*" element={<NotFound />} /> */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </div>

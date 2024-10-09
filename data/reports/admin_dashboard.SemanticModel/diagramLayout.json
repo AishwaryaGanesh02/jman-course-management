@@ -4,7 +4,7 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 0,
+        "x": 206,
         "y": 0
       },
       "nodes": [
@@ -32,25 +32,25 @@
             "height": 158,
             "width": 234
           },
-          "zIndex": 1
-        },
-        {
-          "location": {
-            "x": 1069,
-            "y": 47
-          },
-          "nodeIndex": "skill_dimension",
-          "nodeLineageTag": "4d2d5970-5b99-41ad-afd5-54cf04c36a14",
-          "size": {
-            "height": 128,
-            "width": 234
-          },
           "zIndex": 2
         },
         {
           "location": {
-            "x": 420,
-            "y": 180
+            "x": 981,
+            "y": 238
+          },
+          "nodeIndex": "skill_dimension",
+          "nodeLineageTag": "4d2d5970-5b99-41ad-afd5-54cf04c36a14",
+          "size": {
+            "height": 148,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 361,
+            "y": 289
           },
           "nodeIndex": "employee_progress_fact",
           "nodeLineageTag": "4353534b-8765-4266-9df7-c1a4c341364f",
@@ -58,12 +58,12 @@
             "height": 303,
             "width": 234
           },
-          "zIndex": 3
+          "zIndex": 10
         },
         {
           "location": {
-            "x": 643,
-            "y": 0
+            "x": 675,
+            "y": 143
           },
           "nodeIndex": "designation_dimension",
           "nodeLineageTag": "1b2ac42d-01d7-44f9-8c4f-016f85f38bb2",
@@ -101,8 +101,8 @@
         },
         {
           "location": {
-            "x": 1356,
-            "y": 313.5
+            "x": 1276,
+            "y": 167.5
           },
           "nodeIndex": "Custom Measures",
           "nodeLineageTag": "f76fde28-078b-4cc8-a089-b593b7a97d05",
@@ -115,7 +115,7 @@
         {
           "location": {
             "x": 0,
-            "y": 355.5
+            "y": 363.5
           },
           "nodeIndex": "Latest_Progress_Records",
           "nodeLineageTag": "72b500e3-b94d-489e-a106-7cf5c4212843",
@@ -124,6 +124,45 @@
             "width": 234
           },
           "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 1560,
+            "y": 169
+          },
+          "nodeIndex": "pivot_table",
+          "nodeLineageTag": "4cc1368c-75e8-4fa7-8621-416665635e83",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1844,
+            "y": 169
+          },
+          "nodeIndex": "top_10_skills_designation",
+          "nodeLineageTag": "a1cf626f-4020-454a-b2b9-415f25d2bbdd",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2128,
+            "y": 195
+          },
+          "nodeIndex": "fact_table",
+          "nodeLineageTag": "628786b0-200c-4c85-ace4-eae7b6b61f96",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",

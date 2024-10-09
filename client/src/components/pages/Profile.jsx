@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 function Profile() {
   const token = Cookies.get("token");
+  const role = Cookies.get("role");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
@@ -129,17 +130,19 @@ function Profile() {
                       disabled={!isEditMode}
                     />
                   </div>
-                  <div className="mt-5 flex items-center">
-                    <label className="w-32">Designation:</label>
-                    <input
-                      type="text"
-                      className={`text-black ml-4 w-full rounded-lg border-0 bg-bg h-8 px-2 ${
-                        isEditMode ? "text-gray-500" : ""
-                      }`}
-                      value={designation}
-                      disabled
-                    />
-                  </div>
+                  {role !== "admin" && (
+                    <div className="mt-5 flex items-center">
+                      <label className="w-32">Designation:</label>
+                      <input
+                        type="text"
+                        className={`text-black ml-4 w-full rounded-lg border-0 bg-bg h-8 px-2 ${
+                          isEditMode ? "text-gray-500" : ""
+                        }`}
+                        value={designation}
+                        disabled
+                      />
+                    </div>
+                  )}
                   <div className="mt-5 flex items-center">
                     <label className="w-32">Email:</label>
                     <input
