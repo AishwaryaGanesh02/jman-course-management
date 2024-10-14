@@ -1,4 +1,5 @@
 const CourseModel = require("../models/courseModel");
+const axios = require("axios");
 
 // Get list of skills associated with a course
 exports.getCourseSkills = async (req, res) => {
@@ -22,6 +23,22 @@ exports.getAvailableCourses = async (req, res) => {
     res.status(200).json(availableCourses);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch available courses" });
+  }
+};
+
+// Get recommended courses
+exports.getRecommendations = async (req, res) => {
+  const employeeId = req.params.employeeId;
+
+  try {
+    const response = await axios.get(
+      `http://127.0.0.1:5000/recommendations?employeeId=${employeeId}`
+    );
+    console.log(response.data);
+    res.json(response.data);
+  } catch (error) {
+    console.log("--", error);
+    res.status(error.response?.status || 500).json({ message: error.message });
   }
 };
 

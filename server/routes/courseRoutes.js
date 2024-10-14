@@ -6,6 +6,7 @@ const {
   getCourseDetails,
   getAllCourses,
   getCourseId,
+  getRecommendations,
 } = require("../controllers/courseController");
 const authenticateToken = require("../middlewares/authMiddleware");
 
@@ -52,5 +53,16 @@ router.get("/", authenticateToken, getAllCourses);
  * Used in: ProtectRoutes.jsx
  */
 router.get("/valid-ids", authenticateToken, getCourseId);
+
+/**
+ * GET /recommendations/:employeeId
+ * Retrieves the recommendations for an employee.
+ * Used in: AssignCourseModel.jsx
+ */
+router.get(
+  "/recommendations/:employeeId",
+  authenticateToken,
+  getRecommendations
+);
 
 module.exports = router;

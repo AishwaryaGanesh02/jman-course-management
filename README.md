@@ -97,11 +97,17 @@ This application is a comprehensive course management system designed to track e
 5.  **Run Migrations**:
 
 ```bash
-
-npx prisma migrate dev
+  npx prisma migrate dev
 ```
 
-6.  **Run the Application**:
+6. **Set up Python Environment for Data Science**
+
+```bash
+    cd data/datascience
+    pip install -r requirements.txt
+```
+
+7.  **Run the Application**:
 
     - Start the backend:
 

@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 const AssignCourseModal = ({ onClose, onAssignCourse }) => {
   const [employees, setEmployees] = useState([]);
   const [courses, setCourses] = useState([]);
+  const [recommendedCourses, setRecommendedCourses] = useState([]); // State for recommendations
   const [selectedEmployee, setSelectedEmployee] = useState("");
   const [selectedCourse, setSelectedCourse] = useState("");
   const [courseDetails, setCourseDetails] = useState(null);
@@ -49,6 +50,23 @@ const AssignCourseModal = ({ onClose, onAssignCourse }) => {
         } catch (error) {
           toast.error("Error fetching courses. Please try again later.");
         }
+
+        // Fetch recommendations based on selected employee
+        try {
+          const recommendationsResponse = await axios.get(
+            `http://localhost:1200/api/courses/recommendations/${selectedEmployee}`,
+            {
+              headers: {
+                authorization: `${token}`,
+              },
+            }
+          );
+          setRecommendedCourses(recommendationsResponse.data);
+        } catch (error) {
+          toast.error(
+            "Error fetching course recommendations. Please try again later."
+          );
+        }
       }
     };
 
@@ -59,6 +77,7 @@ const AssignCourseModal = ({ onClose, onAssignCourse }) => {
     setSelectedEmployee(event.target.value);
     setSelectedCourse("");
     setCourseDetails(null);
+    setRecommendedCourses([]); // Clear recommendations when employee changes
   };
 
   const handleCourseChange = (event) => {
@@ -127,6 +146,20 @@ const AssignCourseModal = ({ onClose, onAssignCourse }) => {
                     </option>
                   ))}
                 </select>
+              </div>
+              <div className="border border-8 rounded-xl p-3 m-6 text-orange-300">
+                {recommendedCourses.length > 0 && (
+                  <div className="mb-4">
+                    <h2 className="text-yellow-500 font-bold text-lg">
+                      Recommended Courses
+                    </h2>
+                    <ul className="list-disc pl-5">
+                      {recommendedCourses.map((course) => (
+                        <li key={course.courseId}>{course.courseName}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
               <div className="mb-4">
                 <label
