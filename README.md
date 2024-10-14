@@ -121,6 +121,12 @@ This application is a comprehensive course management system designed to track e
       npm start
       ```
 
+    - Run the Data Science Application:
+
+      ```bash
+      python app.py
+      ```
+
 ## Usage
 
 ### Admin View
