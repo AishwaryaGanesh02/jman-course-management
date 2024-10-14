@@ -36,6 +36,8 @@ This application is a comprehensive course management system designed to track e
 - **Model Selection**: Train machine learning models to predict optimal learning paths for employees.
 - **Model Evaluation**: Assess model performance using key metrics to ensure accurate and valuable recommendations.
 
+![Architecture Diagram](docs/Architecture%20Diagram.JPG)
+
 ---
 
 ## Key Components and Data Flow
@@ -71,7 +73,7 @@ This application is a comprehensive course management system designed to track e
 1. **Clone the repository**:
 
 ```bash
-   git clone https://github.com/your-repo-url
+   git clone https://github.com/https://github.com/AishwaryaGanesh02/jman-course-management.git
 ```
 
 2. **Install Backend Dependencies**:
