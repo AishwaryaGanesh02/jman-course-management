@@ -41,11 +41,6 @@ const authController = {
     const { email, password } = req.body;
     const user = await UserModel.findUserByEmail(email);
     if (!user || !(await bcrypt.compare(password, user.passwordHash))) {
-      console.log(
-        "Password comparison:",
-        await bcrypt.compare(password, user.passwordHash)
-      );
-
       return res.json({ message: "Invalid credentials" });
     }
     const token = jwt.sign(

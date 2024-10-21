@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const AssignCourseModal = ({ onClose, onAssignCourse }) => {
   const [employees, setEmployees] = useState([]);
   const [courses, setCourses] = useState([]);
-  const [recommendedCourses, setRecommendedCourses] = useState([]); // State for recommendations
+  const [recommendedCourses, setRecommendedCourses] = useState([]);
   const [selectedEmployee, setSelectedEmployee] = useState("");
   const [selectedCourse, setSelectedCourse] = useState("");
   const [courseDetails, setCourseDetails] = useState(null);
@@ -46,12 +46,17 @@ const AssignCourseModal = ({ onClose, onAssignCourse }) => {
               },
             }
           );
-          setCourses(response.data);
+          const sortedCourses = response.data.sort((a, b) => {
+            if (a.title < b.title) return -1;
+            if (a.title > b.title) return 1;
+            return 0;
+          });
+
+          setCourses(sortedCourses);
         } catch (error) {
           toast.error("Error fetching courses. Please try again later.");
         }
 
-        // Fetch recommendations based on selected employee
         try {
           const recommendationsResponse = await axios.get(
             `http://localhost:1200/api/courses/recommendations/${selectedEmployee}`,
@@ -63,9 +68,13 @@ const AssignCourseModal = ({ onClose, onAssignCourse }) => {
           );
           setRecommendedCourses(recommendationsResponse.data);
         } catch (error) {
-          toast.error(
-            "Error fetching course recommendations. Please try again later."
-          );
+          if (error.response && error.response.status === 404) {
+            toast.info("No recommendations for this employee.");
+          } else {
+            toast.error(
+              "Error fetching course recommendations. Please try again later."
+            );
+          }
         }
       }
     };
@@ -77,7 +86,7 @@ const AssignCourseModal = ({ onClose, onAssignCourse }) => {
     setSelectedEmployee(event.target.value);
     setSelectedCourse("");
     setCourseDetails(null);
-    setRecommendedCourses([]); // Clear recommendations when employee changes
+    setRecommendedCourses([]);
   };
 
   const handleCourseChange = (event) => {
@@ -103,9 +112,7 @@ const AssignCourseModal = ({ onClose, onAssignCourse }) => {
       certificateProof: null,
       action: "assigned",
     };
-
     onAssignCourse(body);
-    toast.success("Course assigned successfully!");
   };
 
   const handleClose = () => {
@@ -119,7 +126,6 @@ const AssignCourseModal = ({ onClose, onAssignCourse }) => {
       role="dialog"
       aria-modal="true"
     >
-      <ToastContainer />
       <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
       <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
         <div className="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
@@ -148,7 +154,7 @@ const AssignCourseModal = ({ onClose, onAssignCourse }) => {
                 </select>
               </div>
               <div className="border border-8 rounded-xl p-3 m-6 text-orange-300">
-                {recommendedCourses.length > 0 && (
+                {recommendedCourses.length > 0 ? (
                   <div className="mb-4">
                     <h2 className="text-yellow-500 font-bold text-lg">
                       Recommended Courses
@@ -159,6 +165,8 @@ const AssignCourseModal = ({ onClose, onAssignCourse }) => {
                       ))}
                     </ul>
                   </div>
+                ) : (
+                  "Recommendation not available"
                 )}
               </div>
               <div className="mb-4">

@@ -106,23 +106,16 @@ const UserModel = {
     modulesCompleted,
     certificateProof
   ) => {
-    try {
-      console.log("---------dfs");
-      const a = await prisma.employeeProgress.create({
-        data: {
-          userId: Number(userId),
-          courseId: Number(courseId),
-          progressStatus,
-          modulesCompleted,
-          certificateProof,
-          lastUpdated: new Date(),
-        },
-      });
-      console.log(a);
-      return a;
-    } catch (e) {
-      console.log(e);
-    }
+    return await prisma.employeeProgress.create({
+      data: {
+        userId: Number(userId),
+        courseId: Number(courseId),
+        progressStatus,
+        modulesCompleted,
+        certificateProof,
+        lastUpdated: new Date(),
+      },
+    });
   },
 
   getUserProgress: async (userId, courseId) => {

@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import AssignCourseModal from "../models_filters/AssignCourseModel";
 import ProgressFilter from "../models_filters/ProgressFilter";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const EmployeeCourseList = () => {
@@ -43,6 +43,7 @@ const EmployeeCourseList = () => {
         }
       );
       toast.success(response.data.message);
+
       setIsModalOpen(false);
     } catch (error) {
       toast.error("Error assigning course.");
@@ -116,7 +117,6 @@ const EmployeeCourseList = () => {
 
   return (
     <div className="flex bg-mainbg h-full">
-      <ToastContainer />
       <Sidebar />
       <div className="ml-64 w-full h-full flex flex-col">
         <h1 className="font-extrabold text-19xl py-8">User Course Progress</h1>
@@ -146,7 +146,7 @@ const EmployeeCourseList = () => {
                       width="20"
                       height="20"
                       fill="#9ca3af"
-                      class="bi bi-search"
+                      className="bi bi-search"
                       viewBox="0 0 16 16"
                     >
                       <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />

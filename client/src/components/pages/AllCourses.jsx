@@ -118,7 +118,7 @@ const AllCourses = () => {
       <Sidebar />
       <div className="ml-64 w-full h-screen overflow-y-auto flex flex-col">
         <h1 className="font-extrabold text-19xl py-8">
-          {role == "employee" ? " Your" : " All"} Courses
+          {role === "employee" ? " Your" : " All"} Courses
         </h1>
         <div className="flex mr-5 p-4 bg-bg shadow shadow-gray-400	">
           <CourseFilters
@@ -140,7 +140,7 @@ const AllCourses = () => {
                 width="20"
                 height="20"
                 fill="#9ca3af"
-                class="bi bi-search"
+                className="bi bi-search"
                 viewBox="0 0 16 16"
               >
                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
@@ -152,7 +152,7 @@ const AllCourses = () => {
                 onChange={(e) => setSearch(e.target.value)}
               />
             </div>
-            {role == "employee" ? (
+            {role === "employee" ? (
               Object.keys(orderedCourses).map((status) => {
                 const { label, color } = statusStyles[status] || {
                   label: status,
@@ -176,9 +176,11 @@ const AllCourses = () => {
                               {course.shortIntro || "No description available."}
                             </p>
                             <p className="mt-2">
-                              Total Time: {course.totalTime} mins
+                              <b>Total Time:</b> {course.totalTime} mins
                             </p>
-                            <p>Total Modules: {course.totalModules}</p>
+                            <p>
+                              <b>Total Modules:</b> {course.totalModules}
+                            </p>
                           </div>
                         </Link>
                       ))}
@@ -198,9 +200,11 @@ const AllCourses = () => {
                         {course.shortIntro || "No description available."}
                       </p>
                       <p className="mt-2">
-                        Total Time: {course.totalTime} mins
+                        <b>Total Time:</b> {course.totalTime} mins
                       </p>
-                      <p>Total Modules: {course.totalModules}</p>
+                      <p>
+                        <b>Total Modules:</b> {course.totalModules}
+                      </p>
                     </div>
                   </Link>
                 ))}

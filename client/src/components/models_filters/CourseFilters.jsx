@@ -25,7 +25,7 @@ const CourseFilters = ({
     ? skills.filter((skill) =>
         skill.toLowerCase().includes(search.toLowerCase())
       )
-    : skills; // Show all skills if search is empty
+    : skills;
 
   return (
     <div className="flex flex-col space-y-4 mb-4 p-4 bg-white rounded shadow-md">

@@ -158,7 +158,7 @@ The Power BI dashboard provides real-time insights into:
 
 - **Data Collection**: Data is collected on employee performance, course difficulty, and skill acquisition.
 - **Feature Engineering**: Key features like course difficulty, employee performance, and time to completion are engineered to inform the recommendation model.
-- **Model Training**: Machine learning models are trained using historical data to predict the best learning paths.
+- **Incorporate ML Concepts**: Using TF-IDF vectorization and cosine similarity, the system identifies courses that align with an employee's existing skills and the skills required for their designation.
 - **Recommendations**: Admins can access course recommendations for each employee directly from the dashboard.
 
 ---

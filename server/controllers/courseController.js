@@ -34,10 +34,8 @@ exports.getRecommendations = async (req, res) => {
     const response = await axios.get(
       `http://127.0.0.1:5000/recommendations?employeeId=${employeeId}`
     );
-    console.log(response.data);
     res.json(response.data);
   } catch (error) {
-    console.log("--", error);
     res.status(error.response?.status || 500).json({ message: error.message });
   }
 };

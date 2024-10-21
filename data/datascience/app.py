@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from recommendations import recommend_courses_content_based
+from recommendations import recommend_courses
 
 app = Flask(__name__)
 
@@ -11,7 +11,7 @@ def get_recommendations():
     if employee_id is None:
         return jsonify({'error': 'employeeId is required'}), 400
 
-    recommendations = recommend_courses_content_based(employee_id)
+    recommendations = recommend_courses(employee_id)
 
     if recommendations is None:
         return jsonify({'error': f"No data found for employee ID: {employee_id}"}), 404
