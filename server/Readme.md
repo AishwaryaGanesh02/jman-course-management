@@ -65,3 +65,4 @@ The application requires the following environment variables to be set in the `.
 | GET    | `/api/courses/:courseId/details`            | Retrieves detailed information about a specific course.                        | CourseDetail.jsx       |
 | GET    | `/api/courses`                              | Retrieves a list of all available courses.                                     | AllCourses.jsx         |
 | GET    | `/api/courses/valid-ids`                    | Retrieves valid course IDs for the user.                                       | ProtectRoutes.jsx      |
+| POST   | `/api/courses/add`                          | Add a new course.                                                              | AllCourses.jsx         |

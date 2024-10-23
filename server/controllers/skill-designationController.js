@@ -7,7 +7,6 @@ exports.getDesignations = async (req, res) => {
     res.json(designations);
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error" });
-
   }
 };
 
@@ -15,9 +14,8 @@ exports.getDesignations = async (req, res) => {
 exports.getSkills = async (req, res) => {
   try {
     const skills = await SkillDesignationModel.getAllSkills();
-    res.json(skills.map((skill) => skill.name));
+    res.json(skills);
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error" });
-
   }
 };

@@ -7,6 +7,7 @@ const {
   getAllCourses,
   getCourseId,
   getRecommendations,
+  addCourse,
 } = require("../controllers/courseController");
 const authenticateToken = require("../middlewares/authMiddleware");
 
@@ -64,5 +65,12 @@ router.get(
   authenticateToken,
   getRecommendations
 );
+
+/**
+ * POST /add
+ * Adds a new course data.
+ * Used in: AllCourses.jsx
+ */
+router.post("/add", authenticateToken, addCourse);
 
 module.exports = router;

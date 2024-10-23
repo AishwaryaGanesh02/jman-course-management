@@ -76,7 +76,7 @@ const AddProgressModal = ({
                 >
                   Completed Modules
                 </label>
-                <div className="flex items-center mt-1">
+                <div className="flex items-center mt-1 mx-5">
                   <input
                     id="modules-completed"
                     type="number"
@@ -91,8 +91,12 @@ const AddProgressModal = ({
               </div>
               {modulesCompleted === totalModules && (
                 <div>
-                  <b>Successfully competed the course!! </b>{" "}
-                  <p>Upload you certificate link</p>
+                  <div className="font-bold text-green-500 text-center m-2">
+                    Successfully competed the course!!{" "}
+                  </div>{" "}
+                  <p className="font-bold text-red-200 my-4">
+                    Upload you certificate link
+                  </p>
                   <label
                     htmlFor="certificate-url"
                     className="block text-sm font-medium text-gray-700"

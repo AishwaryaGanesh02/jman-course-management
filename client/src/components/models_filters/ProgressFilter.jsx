@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const ProgressFilter = ({
   designations,
@@ -14,6 +14,14 @@ const ProgressFilter = ({
   selectedDifficulties,
   setSelectedDifficulties,
 }) => {
+  const [search, setSearch] = useState("");
+
+  const filteredEmployees = search
+    ? usernames.filter((name) =>
+        name.toLowerCase().includes(search.toLowerCase())
+      )
+    : usernames;
+
   const handleDesignationChange = (designation) => {
     if (selectedDesignation.includes(designation)) {
       setSelectedDesignation(
@@ -58,10 +66,10 @@ const ProgressFilter = ({
   };
 
   return (
-    <div className="flex flex-col space-y-4 mb-4 p-4 bg-white rounded shadow-md">
+    <div className="flex flex-col space-y-4 mb-4 p-4 bg-white rounded shadow-md h-screen">
       <div>
         <h3 className="font-bold text-lg">Designations</h3>
-        <div className="flex flex-col space-y-2">
+        <div className="flex flex-col space-y-2 h-48 overflow-y-scroll">
           {designations.map((designation) => (
             <label key={designation} className="flex items-center">
               <input
@@ -101,19 +109,42 @@ const ProgressFilter = ({
       </div>
 
       <div>
-        <h3 className="font-bold text-lg">Employee Names</h3>
-        <div className="flex flex-col space-y-2">
-          {usernames.map((username) => (
-            <label key={username} className="flex items-center">
-              <input
-                type="checkbox"
-                checked={selectedUsername.includes(username)}
-                onChange={() => handleUsernameChange(username)}
-                className="mr-2"
-              />
-              {username.charAt(0).toUpperCase() + username.slice(1)}
-            </label>
-          ))}
+        <h3 className="font-bold text-lg mt-2 ">Employee Names</h3>
+        <div className="my-3 flex items-center gap-2 border rounded p-1 w-full bg-white shadow-md">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="15"
+            height="15"
+            fill="#9ca3af"
+            className="bi bi-search"
+            viewBox="0 0 16 16"
+          >
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+          </svg>
+          <input
+            type="text"
+            placeholder="Search employees..."
+            className="w-full bg-white focus:outline-none"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+        <div className="flex flex-col space-y-2 h-60 overflow-y-scroll">
+          {filteredEmployees.length > 0 ? (
+            filteredEmployees.map((username) => (
+              <label key={username} className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={selectedUsername.includes(username)}
+                  onChange={() => handleUsernameChange(username)}
+                  className="mr-2"
+                />
+                {username.charAt(0).toUpperCase() + username.slice(1)}
+              </label>
+            ))
+          ) : (
+            <p className="text-gray-500">No employees found.</p>
+          )}
         </div>
       </div>
 

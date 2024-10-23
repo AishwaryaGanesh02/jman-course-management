@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const AddSkillModal = ({ onClose, onAddSkill }) => {
@@ -28,7 +28,7 @@ const AddSkillModal = ({ onClose, onAddSkill }) => {
     };
 
     fetchAllSkills();
-  }, []);
+  }, [token]);
 
   const handleSkillChange = (event) => {
     setSelectedSkill(event.target.value);
@@ -62,7 +62,6 @@ const AddSkillModal = ({ onClose, onAddSkill }) => {
       role="dialog"
       aria-modal="true"
     >
-      <ToastContainer />
       <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
       <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
         <div className="flex min-h-full items-center justify-center p-4 text-center sm:p-0">

@@ -56,7 +56,7 @@ const CourseFilters = ({
 
       <div>
         <h3 className="font-bold text-lg">Languages</h3>
-        <div className="flex flex-col space-y-2">
+        <div className="flex flex-col space-y-2 h-48 overflow-y-scroll">
           {languages.map((lang) => (
             <label key={lang} className="flex items-center">
               <input
@@ -100,7 +100,7 @@ const CourseFilters = ({
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
-        <div className="flex flex-col space-y-2">
+        <div className="flex flex-col space-y-2 h-96 overflow-y-scroll mb-5">
           {filteredSkills.length > 0 ? (
             filteredSkills.map((skill) => (
               <label key={skill} className="flex items-center">

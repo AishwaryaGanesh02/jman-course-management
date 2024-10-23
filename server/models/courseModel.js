@@ -198,6 +198,46 @@ const CourseModel = {
       throw new Error("Error fetching all course IDs: " + error.message);
     }
   },
+
+  createCourse: async (
+    difficulty,
+    language,
+    shortIntro,
+    skills,
+    title,
+    totalModules,
+    totalTime,
+    url
+  ) => {
+    try {
+      const newCourse = await prisma.course.create({
+        data: {
+          difficulty,
+          language,
+          shortIntro,
+          title,
+          totalModules: Number(totalModules),
+          totalTime: Number(totalTime),
+          url,
+        },
+      });
+      const courseId = newCourse.id;
+
+      await Promise.all(
+        skills.map(async ({ id, level }) => {
+          await prisma.courseSkill.create({
+            data: {
+              courseId,
+              skillId: Number(id),
+              level: level,
+            },
+          });
+        })
+      );
+    } catch (error) {
+      throw new Error("Error adding course: " + error.message);
+    }
+  },
 };
 
 module.exports = CourseModel;

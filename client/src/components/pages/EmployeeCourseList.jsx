@@ -119,8 +119,10 @@ const EmployeeCourseList = () => {
     <div className="flex bg-mainbg h-full">
       <Sidebar />
       <div className="ml-64 w-full h-full flex flex-col">
-        <h1 className="font-extrabold text-19xl py-8">User Course Progress</h1>
-        <div className="mr-5 p-4 bg-bg h-full shadow shadow-gray-400 overflow-x-auto">
+        <h1 className="font-extrabold text-19xl py-8">
+          Employee Course Progress
+        </h1>
+        <div className="mr-5 p-4 bg-bg h-full shadow shadow-gray-400 ">
           <div className="flex gap-5 flex-grow">
             <ProgressFilter
               designations={designations}
@@ -184,7 +186,7 @@ const EmployeeCourseList = () => {
                   <option value="difficulty">Difficulty</option>
                 </select>
               </div>
-              <div className="w-full h-full overflow-x-scroll shadow-md sm:rounded-lg">
+              <div className="w-full h-screen overflow-scroll shadow-md sm:rounded-lg">
                 <table className="min-w-full text-sm text-left text-gray-500">
                   <thead className="text-xs text-gray-700 uppercase bg-primary-300">
                     <tr>
@@ -217,8 +219,8 @@ const EmployeeCourseList = () => {
                             {course.userDesignation}
                           </td>
                           <td className="px-6 py-4">{course.difficulty}</td>
-                          <td className="px-6 py-4 flex items-center justify-between relative">
-                            {course.progressPercentage}%
+                          <td className="px-6 py-4 flex items-center gap-3 justify-between relative">
+                            {course.progressPercentage}
                             {course.completionStatus === "completed" && (
                               <button
                                 onClick={() =>

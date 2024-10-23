@@ -150,3 +150,32 @@ exports.getCourseId = async (req, res) => {
       .json({ error: "An error occurred while fetching course IDs." });
   }
 };
+
+// Add a new course and their respective skills
+exports.addCourse = async (req, res) => {
+  const {
+    difficulty,
+    language,
+    shortIntro,
+    skills,
+    title,
+    totalModules,
+    totalTime,
+    url,
+  } = req.body;
+  try {
+    const newCourse = await CourseModel.createCourse(
+      difficulty,
+      language,
+      shortIntro,
+      skills,
+      title,
+      totalModules,
+      totalTime,
+      url
+    );
+    res.status(201).json({ message: "Course added successfully", newCourse });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to add course" });
+  }
+};
